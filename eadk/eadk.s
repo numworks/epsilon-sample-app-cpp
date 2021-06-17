@@ -31,6 +31,29 @@ eadk_backlight_set_brightness:
   uxtb r0, r4
   pop {r4, pc}
 
+.global eadk_battery_is_charging
+eadk_battery_is_charging:
+  push {r4, lr}
+  svc #6
+  mov r4, r0
+  uxtb r0, r4
+  pop {r4, pc}
+
+.global eadk_battery_level
+eadk_battery_level:
+  push  {r4, lr}
+  svc #7
+  mov r4, r0
+  uxtb r0, r4
+  pop {r4, pc}
+
+.global eadk_battery_voltage
+eadk_battery_voltage:
+  svc 8
+  vmov ip, s0
+  vmov s0, ip
+  bx lr
+
 .global eadk_display_push_rect_uniform
 eadk_display_push_rect_uniform:
   sub sp, sp, #8
@@ -39,6 +62,64 @@ eadk_display_push_rect_uniform:
   svc #18
   add sp, sp, #8
   bx lr
+
+.global eadk_keyboard_scan
+eadk_keyboard_scan:
+  movs r2, #0
+  movs r3, #0
+  push {r4, lr}
+  mov r4, r0
+  strd r2, r3, [r0]
+  mov r0, r4
+  svc #37
+  mov r0, r4
+  pop {r4, pc}
+
+.global eadk_keyboard_pop_state
+eadk_keyboard_pop_state:
+  push {r0, r1, r2, r4, r5, lr}
+  movs r3, #0
+  movs r2, #0
+  mov r4, r0
+  mov r5, sp
+  strd r2, r3, [sp]
+  mov r0, r5
+  svc #31
+  ldrd r2, r3, [r5]
+  mov r0, r4
+  strd r2, r3, [r4]
+  add sp, #12
+  pop {r4, r5, pc}
+
+.global eadk_timing_usleep
+eadk_timing_usleep:
+  svc #53
+  bx lr
+
+.global eadk_timing_msleep
+eadk_timing_msleep:
+   svc #52
+   bx lr
+
+.global eadk_timing_millis
+eadk_timing_millis:
+  push {r0, r1, r4, lr}
+  mov r4, sp
+  svc #51
+  str r0, [r4, #0]
+  str r1, [r4, #4]
+  movs r0, #0
+  movs r1, #0
+  add sp, #8
+  pop {r4, pc}
+
+.global eadk_timing_usb_is_plugged
+eadk_timing_usb_is_plugged:
+push {r4, lr}
+   svc #55
+   mov r4, r0
+   uxtb r0, r4
+   pop {r4, pc}
 
 .global eadk_random
 eadk_random:
