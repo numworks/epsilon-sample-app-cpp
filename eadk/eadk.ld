@@ -11,21 +11,23 @@ SECTIONS {
     LONG(eadk_app_name); /* There is an "app_name" symbol that points to a C-string */
     LONG(_eadk_app_icon_end - _eadk_app_icon_start);
     LONG(_eadk_app_icon_start);
-    LONG(eadk_main); /* This address shall be odd to indicate that it points to Thumb code */
+    LONG(eadk_main);
     LONG(_eadk_app_end);
     LONG(0xDEC0BEBA);
   } >FLASH
 
   .text : {
     . = ALIGN(4);
+    KEEP(*(*.eadk_main));
     *(.text)
     *(.text.*)
   } >FLASH
 
   .rodata : {
+    KEEP(*(*.eadk_app_name));
     *(.rodata)
     *(.rodata.*)
-    INCLUDE "output/icon.ld";
+    INCLUDE "target/icon.ld";
     _eadk_app_end = .;
   } >FLASH
 

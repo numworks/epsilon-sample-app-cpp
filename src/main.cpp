@@ -6,7 +6,7 @@
 
 extern "C" {
 void eadk_main();
-char eadk_app_name[] __attribute__((used)) = "Voord";
+const char * eadk_app_name = "Voord";
 }
 
 //__attribute((used)) eadk_app_name;
