@@ -54,6 +54,15 @@ eadk_battery_voltage:
   vmov s0, ip
   bx lr
 
+.global eadk_display_push_rect
+eadk_display_push_rect:
+  sub sp, #8
+  add r3, sp, #8
+  stmdb r3, {r0, r1}
+  svc #21
+  add sp, #8
+  bx lr
+
 .global eadk_display_push_rect_uniform
 eadk_display_push_rect_uniform:
   sub sp, sp, #8
