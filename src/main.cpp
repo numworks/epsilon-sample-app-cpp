@@ -42,19 +42,19 @@ void eadk_main() {
   int alienMaterializationTimer = 0;
   while (1) {
     uint64_t keyboardState = eadk_keyboard_scan();
-    if (keyboardState & stateWithKeyDown(eadk_key::ok)) {
+    if (keyboardState & stateWithKeyDown(eadk_key::OK)) {
       spaceship.createRockets();
     }
-    if (keyboardState & stateWithKeyDown(eadk_key::up)) {
+    if (keyboardState & stateWithKeyDown(eadk_key::UP)) {
       spaceship.move(0, -Spaceship::k_step);
     }
-    if (keyboardState & stateWithKeyDown(eadk_key::down)) {
+    if (keyboardState & stateWithKeyDown(eadk_key::DOWN)) {
       spaceship.move(0, Spaceship::k_step);
     }
-    if (keyboardState & stateWithKeyDown(eadk_key::left)) {
+    if (keyboardState & stateWithKeyDown(eadk_key::LEFT)) {
       spaceship.move(-Spaceship::k_step, 0);
     }
-    if (keyboardState & stateWithKeyDown(eadk_key::right)) {
+    if (keyboardState & stateWithKeyDown(eadk_key::RIGHT)) {
       spaceship.move(Spaceship::k_step, 0);
     }
 

@@ -27,16 +27,16 @@ void eadk_display_wait_for_vblank();
 
 // Keyboard
 typedef enum {
-  left=0,  up=1,     down=2,    right=3,            ok=4,              back=5,
-  home=6,  /*B2=7,*/ on_off=8,   /*B4=9,            B5=10,             B6=11, */
-  shift=12,alpha=13, xnt=14,    bar=15,             toolbox=16,        backspace=17,
-  exp=18,  ln=19,    log=20,    im=21,              comma=22,          Power=23,
-  sine=24, cosine=25,tangent=26,pi=27,              sqrt=28,           square=29,
-  seven=30,eight=31, nine=32,   left_parenthesis=33,rightParenthesis=34,// F6=35,
-  four=36, five=37,  six=38,    multiplication=39,  division=40,        // G6=41,
-  one=42,  two=43,   three=44,  plus=45,            minus=46,           // H6=47,
-  zero=48, dot=49,   ee=50,     ans=51,             exe=52,             // I6=53,
-  none = 54
+  LEFT=0,  UP=1,     DOWN=2,    RIGHT=3,            OK=4,              BACK=5,
+  HOME=6,  /*B2=7,*/ ONOFF=8,   /*B4=9,            B5=10,             B6=11, */
+  SHIFT=12,ALPHA=13, XNT=14,    BAR=15,             TOOLBOX=16,        BACKSPACE=17,
+  EXP=18,  LN=19,    LOG=20,    IMAGINARY=21,              COMMA=22,          POWER=23,
+  SINE=24, COSINE=25,TANGENT=26,PI=27,              SQRT=28,           SQUARE=29,
+  SEVEN=30,EIGHT=31, NINE=32,   LEFTPARENTHESIS=33,rightParenthesis=34,// F6=35,
+  FOUR=36, FIVE=37,  SIX=38,    MULTIPLICATION=39,  DIVISION=40,        // G6=41,
+  ONE=42,  TWO=43,   THREE=44,  PLUS=45,            minus=46,           // H6=47,
+  ZERO=48, DOT=49,   EE=50,     ANS=51,             EXE=52,             // I6=53,
+  NONE = 54
 } eadk_key;
 uint64_t eadk_keyboard_scan();
 uint64_t eadk_keyboard_pop_state();
