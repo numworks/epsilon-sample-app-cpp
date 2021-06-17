@@ -2,7 +2,9 @@
 #define LIFE_H
 
 #include "display.h"
+extern "C" {
 #include "../eadk/eadk.h"
+}
 
 class Life {
 public:

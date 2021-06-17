@@ -1,7 +1,6 @@
 #include "rocket.h"
 #include "alien.h"
 #include "palette.h"
-#include "../eadk/eadk.h"
 #include "stdlib.h"
 
 void Rocket::setLocation(int x, int y) {

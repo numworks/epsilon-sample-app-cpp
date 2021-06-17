@@ -1,8 +1,10 @@
 #ifndef ROCKET_H
 #define ROCKET_H
 
-#include "../eadk/eadk.h"
 #include "display.h"
+extern "C" {
+#include "../eadk/eadk.h"
+}
 
 class Alien;
 

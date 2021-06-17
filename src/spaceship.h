@@ -2,9 +2,11 @@
 #define SPACESHIP_H
 
 #include "display.h"
-#include "../eadk/eadk.h"
 #include "life.h"
 #include "rocket.h"
+extern "C" {
+#include "../eadk/eadk.h"
+}
 
 class Spaceship {
 public:

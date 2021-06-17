@@ -1,8 +1,10 @@
 #ifndef ALIEN_H
 #define ALIEN_H
 
-#include "../eadk/eadk.h"
 #include "spaceship.h"
+extern "C" {
+#include "../eadk/eadk.h"
+}
 
 class Alien {
 public:

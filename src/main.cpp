@@ -2,8 +2,9 @@
 #include "display.h"
 #include "palette.h"
 #include "spaceship.h"
+extern "C" {
 #include "../eadk/eadk.h"
-
+}
 extern "C" {
 void eadk_main();
 const char * eadk_app_name = "Voord";
