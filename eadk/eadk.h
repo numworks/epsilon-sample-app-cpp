@@ -28,16 +28,17 @@ void eadk_display_wait_for_vblank();
 // Keyboard
 typedef enum {
   LEFT=0,  UP=1,     DOWN=2,    RIGHT=3,            OK=4,              BACK=5,
-  HOME=6,  /*B2=7,*/ ONOFF=8,   /*B4=9,            B5=10,             B6=11, */
+  HOME=6,  /*B2=7,*/ ONOFF=8,   /*B4=9,             B5=10,             B6=11, */
   SHIFT=12,ALPHA=13, XNT=14,    BAR=15,             TOOLBOX=16,        BACKSPACE=17,
-  EXP=18,  LN=19,    LOG=20,    IMAGINARY=21,              COMMA=22,          POWER=23,
+  EXP=18,  LN=19,    LOG=20,    IMAGINARY=21,       COMMA=22,          POWER=23,
   SINE=24, COSINE=25,TANGENT=26,PI=27,              SQRT=28,           SQUARE=29,
-  SEVEN=30,EIGHT=31, NINE=32,   LEFTPARENTHESIS=33,rightParenthesis=34,// F6=35,
+  SEVEN=30,EIGHT=31, NINE=32,   LEFTPARENTHESIS=33, RIGHTPARENTHESIS=34,// F6=35,
   FOUR=36, FIVE=37,  SIX=38,    MULTIPLICATION=39,  DIVISION=40,        // G6=41,
-  ONE=42,  TWO=43,   THREE=44,  PLUS=45,            minus=46,           // H6=47,
+  ONE=42,  TWO=43,   THREE=44,  PLUS=45,            MINUS=46,           // H6=47,
   ZERO=48, DOT=49,   EE=50,     ANS=51,             EXE=52,             // I6=53,
   NONE = 54
 } eadk_key;
+
 uint64_t eadk_keyboard_scan();
 uint64_t eadk_keyboard_pop_state();
 
