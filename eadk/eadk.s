@@ -91,25 +91,29 @@ eadk_display_wait_for_vblank:
 
 .global eadk_keyboard_pop_state
 eadk_keyboard_pop_state:
-   push {r0, r1, r4, lr}
-   mov r4, sp
-   mov r0, r4
-   svc 31
-   movs r0, #0
-   movs r1, #0
-   add sp, #8
-   pop {r4, pc}
+  movs r2, #0
+  movs r3, #0
+  push {r0, r1, r4, lr}
+  mov r4, sp
+  strd r2, r3, [sp]
+  mov r0, r4
+  svc 31
+  ldrd r0, r1, [r4]
+  add sp, #8
+  pop {r4, pc}
 
 .global eadk_keyboard_scan
 eadk_keyboard_scan:
-   push {r0, r1, r4, lr}
-   mov r4, sp
-   mov r0, r4
-   svc 32
-   movs r0, #0
-   movs r1, #0
-   add sp, #8
-   pop {r4, pc}
+  movs r2, #0
+  movs r3, #0
+  push {r0, r1, r4, lr}
+  mov r4, sp
+  strd r2, r3, [sp]
+  mov r0, r4
+  svc 32
+  ldrd r0, r1, [r4]
+  add sp, #8
+  pop {r4, pc}
 
 .global eadk_timing_millis
 eadk_timing_millis:
