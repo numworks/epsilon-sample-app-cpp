@@ -40,7 +40,7 @@ void eadk_main() {
   int alienStepTimer = 0;
   int alienMaterializationTimer = 0;
   while (1) {
-    uint64_t keyboardState = eadk_keyboard_scan();
+    eadk_keyboard_state keyboardState = eadk_keyboard_scan();
     if (keyboardState & stateWithKeyDown(eadk_key::OK)) {
       spaceship.createRockets();
     }

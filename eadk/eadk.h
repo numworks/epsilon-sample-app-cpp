@@ -23,7 +23,7 @@ typedef struct {
 void eadk_display_push_rect(eadk_rect rect, const eadk_color * pixels);
 void eadk_display_push_rect_uniform(eadk_rect rect, eadk_color color);
 void eadk_display_pull_rect(eadk_rect rect, eadk_color * pixels);
-void eadk_display_wait_for_vblank();
+bool eadk_display_wait_for_vblank();
 
 // Keyboard
 typedef enum {
@@ -39,8 +39,9 @@ typedef enum {
   NONE = 54
 } eadk_key;
 
-uint64_t eadk_keyboard_scan();
-uint64_t eadk_keyboard_pop_state();
+typedef uint64_t eadk_keyboard_state;
+eadk_keyboard_state eadk_keyboard_scan();
+eadk_keyboard_state eadk_keyboard_pop_state();
 
 // Timing
 void eadk_timing_usleep(uint32_t us);
@@ -48,7 +49,7 @@ void eadk_timing_msleep(uint32_t ms);
 uint64_t eadk_timing_millis();
 
 // USB
-bool eadk_timing_usb_is_plugged();
+bool eadk_usb_is_plugged();
 
 // Misc
 uint32_t eadk_random();
