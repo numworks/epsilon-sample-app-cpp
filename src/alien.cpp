@@ -2,7 +2,7 @@
 #include "palette.h"
 #include "stdlib.h"
 
-Alien::Alien(uint16_t x) :
+Alien::Alien(int x) :
   m_x(x),
   m_y(2*Display::CommonVerticalMargin)
 {
@@ -12,15 +12,14 @@ Alien::Alien(uint16_t x) :
 }
 
 void Alien::hide() const {
-  //eadk_display_push_rect_uniform({.x = static_cast<uint16_t>(m_x - k_width/2), .y = m_y - k_height/2, .width = k_width, .height = k_height}, Black);
   eadk_display_push_rect_uniform({.x = m_x + 2, .y = m_y - k_height/2, .width = k_width, .height = k_height}, Black);
 }
 
 void Alien::draw(const eadk_color c) const {
-  uint16_t xMin = m_x - k_width/2;
-  uint16_t xMax = xMin + k_width;
-  uint16_t yMin = m_y - k_height/2;
-  uint16_t yMax = yMin + k_height;
+  int xMin = m_x - k_width/2;
+  int xMax = xMin + k_width;
+  int yMin = m_y - k_height/2;
+  int yMax = yMin + k_height;
   eadk_display_push_rect_uniform({.x = xMin, .y = yMin, .width = k_width, .height = k_height - 4}, c);
   eadk_display_push_rect_uniform({.x = xMin + 3, .y =  yMax - 4, .width = 2, .height = 4}, c);
   eadk_display_push_rect_uniform({.x = xMax - 4 - 2, .y = yMax - 4, .width = 2, .height = 4}, c);
