@@ -1,3 +1,4 @@
+APP_INDEX ?= 0
 BUILD_DIR = target
 
 define object_for
@@ -24,7 +25,7 @@ LFLAGS =  -Wl,--gc-sections -lgcc -Leadk -Wl,-T,eadk.ld
 
 .PHONY: run
 run: $(BUILD_DIR)/external_application.elf
-	python3 eadk/run.py $^
+	python3 eadk/run.py $^ --app-index $(APP_INDEX)
 
 .PHONY: build
 build: $(BUILD_DIR)/external_application.elf
