@@ -12,7 +12,7 @@ Alien::Alien(int x) :
 }
 
 void Alien::hide() const {
-  eadk_display_push_rect_uniform({.x = m_x + 2, .y = m_y - k_height/2, .width = k_width, .height = k_height}, Black);
+  eadk_display_push_rect_uniform({m_x - k_width/2, m_y - k_height/2, k_width, k_height}, Black);
 }
 
 void Alien::draw(const eadk_color c) const {
