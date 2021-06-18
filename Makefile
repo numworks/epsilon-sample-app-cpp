@@ -45,7 +45,7 @@ $(BUILD_DIR)/icon.ld: src/icon.png | $(BUILD_DIR)
 .PRECIOUS: $(BUILD_DIR)
 $(BUILD_DIR):
 	$(Q) mkdir -p $@/src $@/eadk
-	
+
 .PHONY: clean
 clean:
 	@echo "CLEAN"
