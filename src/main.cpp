@@ -5,10 +5,8 @@
 extern "C" {
 #include "../eadk/eadk.h"
 }
-extern "C" {
-void eadk_main();
-const char * eadk_app_name = "Voord";
-}
+extern "C" void eadk_main();
+extern "C" const char eadk_app_name[] = "Voord";
 
 //__attribute((used)) eadk_app_name;
 void checkForSpaceshipAliensCollisions(Alien aliens[], int numberOfAliens, Spaceship * spaceship) {
