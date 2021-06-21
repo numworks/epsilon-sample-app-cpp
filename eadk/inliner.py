@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import argparse
 import lz4.block
-import os.path
 import png
 
 def alpha_blending(intensity, alpha):
@@ -18,11 +17,6 @@ def rgba8882rgb565(red, green, blue, alpha):
 def generate_linker_script(png_file, linker_script_file_name):
   png_reader = png.Reader(filename = png_file)
   width,height,data,info = png_reader.asRGBA8()
-
-  # Remove path prefix
-  png_file = os.path.basename(png_file)
-  # Remove path extension
-  png_file = os.path.splitext(png_file)[0]
 
   # Convert RGBA888 to RGB565
   dataRGB565 = []
