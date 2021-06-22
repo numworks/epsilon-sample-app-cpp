@@ -38,7 +38,7 @@ $(addprefix $(BUILD_DIR)/,%.o): %.cpp | $(BUILD_DIR)
 	arm-none-eabi-g++ $(CPPFLAGS) $(SFLAGS) -c $^ -o $@
 
 $(addprefix $(BUILD_DIR)/,%.o): %.s | $(BUILD_DIR)
-	arm-none-eabi-as $(SFLAGS) -c $^ -o $@
+	arm-none-eabi-as $^ -o $@
 
 .PRECIOUS: $(BUILD_DIR)/icon.ld
 $(BUILD_DIR)/icon.ld: src/icon.png | $(BUILD_DIR)
