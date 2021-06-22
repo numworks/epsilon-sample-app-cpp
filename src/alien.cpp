@@ -42,7 +42,7 @@ void Alien::step() {
 
 bool Alien::hits(Spaceship * s) {
   if (isGhost()) {
-   return false;
+    return false;
   }
   if (abs(m_x - s->x()) < Spaceship::k_width/2 + k_width/2 &&
       abs(m_y - s->y()) < Spaceship::k_height/2 + k_height/2) {
