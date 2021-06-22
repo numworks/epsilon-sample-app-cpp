@@ -7,40 +7,23 @@
 This is a sample C++ app to use on a [NumWorks calculator](https://www.numworks.com).
 
 ```cpp
+
+using namespace EADK;
+
 void eadk_main() {
-  eadk_display_push_rect_uniform(
-      {0, 0, Display::Width, Display::Height},
-      Black
-    );
-
-  /*...*/
-
+  Display::pushRectUniform(
+    Display::Rect(0, 0, 320, 240),
+    Display::Color(0x000000)
+  );
   while (1) {
-    eadk_keyboard_state keyboardState = eadk_keyboard_scan();
-    if (keyboardState & stateWithKeyDown(eadk_key::OK)) {
+    Keyboard::State kbd = Keyboard::scan();
+    if (kbd.keyDown(Keyboard::Key::OK)) {
       spaceship.createRockets();
     }
-    if (keyboardState & stateWithKeyDown(eadk_key::UP)) {
+    if (kbd.keyDown(Keyboard::Key::Up)) {
       spaceship.move(0, -Spaceship::k_step);
     }
-    if (keyboardState & stateWithKeyDown(eadk_key::DOWN)) {
-      spaceship.move(0, Spaceship::k_step);
-    }
-    if (keyboardState & stateWithKeyDown(eadk_key::LEFT)) {
-      spaceship.move(-Spaceship::k_step, 0);
-    }
-    if (keyboardState & stateWithKeyDown(eadk_key::RIGHT)) {
-      spaceship.move(Spaceship::k_step, 0);
-    }
-
-    checkForSpaceshipAlienCollisions(
-        aliens,
-        k_maxNumberOfAliens,
-        &spaceship
-      );
-
-    /*... */
-
+    refreshScene();
   }
 }
 ```
