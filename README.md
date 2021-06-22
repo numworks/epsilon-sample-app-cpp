@@ -52,7 +52,7 @@ You need to install an embedded ARM toolchain and a couple Python modules.
 ```shell
 brew install numworks/tap/arm-none-eabi-gcc # Or equivalent on your OS
 pip3 install lz4 pypng
-make clean; make build
+make clean && make build
 ```
 
 ## Run the app
@@ -78,7 +78,7 @@ Epsilon expects apps to follow a certain layout in memory. Namely, they should s
 | 0x08 | 0x04 | -          | Offset from start of the app to a NULL-terminated NFKD UTF-8 string containing the app name |
 | 0x0C | 0x04 | -          | Size of the icon data |
 | 0x10 | 0x04 | -          | Offset from start of the app to the actual icon data. This data should be the result of LZ4-compressing a sequence of 55x56 RGB565 pixels |
-| 0x14 | 0x04 | -          | Offset from start of the app to the entry point. This offset should be odd to indicate a Thumb entry point. |
+| 0x14 | 0x04 | -          | Offset from start of the app to the entry point. |
 | 0x18 | 0x04 | -          | Size of the entire app |
 | 0x00 | 0x04 | 0xDEC0BEBA | Magic end-of-header marker |
 
