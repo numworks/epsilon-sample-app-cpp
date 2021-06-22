@@ -12,4 +12,4 @@ jobs:
       - name: Install build-time Python dependencies
         run: pip3 install lz4 pypng
       - name: Run make build
-        run: make clean && make build
+        run: make build
