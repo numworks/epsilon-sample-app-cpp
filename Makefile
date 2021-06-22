@@ -21,7 +21,7 @@ src += $(addprefix eadk/,\
 )
 
 SFLAGS = -I. -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -Isrc
-CPPFLAGS = -Os -std=c++11 -fdata-sections -ffunction-sections -fpie -fno-exceptions -ffreestanding -fno-rtti -nostdinc -nostdlib -fno-threadsafe-statics -Wno-narrowing
+CPPFLAGS = -Os -std=c++11 -fdata-sections -ffunction-sections -fpie -fno-exceptions -ffreestanding -fno-rtti -nostdinc -nostdlib -fno-threadsafe-statics
 LFLAGS =  -Wl,--gc-sections -lgcc -Leadk -Wl,-T,eadk.ld
 
 .PHONY: run
