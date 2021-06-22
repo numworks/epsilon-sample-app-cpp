@@ -61,6 +61,7 @@ void eadk_main() {
 
     checkForSpaceshipAlienCollisions(aliens, k_maxNumberOfAliens, &spaceship);
 
+    // Rockets move forward and potentially collide
     if (rocketTimer == Rocket::k_period) {
       rocketTimer = 0;
       for (int i = 0; i < spaceship.numberOfRockets(); i++) {
@@ -68,6 +69,8 @@ void eadk_main() {
       }
       checkForRocketsAliensCollisions(&spaceship, aliens, k_maxNumberOfAliens);
     }
+
+    // Aliens move forward and potentially collide with rockets or spaceship
     if (alienStepTimer == Alien::k_stepPeriod) {
       alienStepTimer = 0;
       for (int i = 0; i < k_maxNumberOfAliens; i++) {
