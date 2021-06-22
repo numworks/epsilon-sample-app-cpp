@@ -63,6 +63,7 @@ void Spaceship::createRockets() {
         continue;
       }
     }
+    // Launch the first available rocket
     for (int i = 0; i < k_maxNumberOfRockets; i++) {
       if (m_rockets[i].off()) {
         m_rockets[i].setLocation(x, y);
