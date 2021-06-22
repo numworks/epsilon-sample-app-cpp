@@ -54,9 +54,6 @@ bool Alien::hits(Spaceship * s) {
 }
 
 void Alien::killed() {
-  if (isGhost()) {
-    return;
-  }
   for (int i = 0; i < 5; i++) {
     draw(Green);
     eadk_timing_msleep(10);
