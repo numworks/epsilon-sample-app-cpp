@@ -20,9 +20,10 @@ void Rocket::draw(const eadk_color c) const {
 
 void Rocket::forward() {
   draw(Black);
-  if (!off()) {
-    m_y -= k_length;
+  if (off()) {
+    return;
   }
+  m_y -= k_length;
   draw(LightBlue);
 }
 
