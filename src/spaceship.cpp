@@ -42,7 +42,7 @@ void Spaceship::move(int deltaX, int deltaY) {
 
 bool Spaceship::hit() {
   m_lives[m_numberOfLives - 1].breaks();
-  m_numberOfLives = m_numberOfLives - 1;
+  m_numberOfLives--;
   for (int i = 0; i < 5; i++) {
     draw(Red);
     eadk_timing_msleep(10);
