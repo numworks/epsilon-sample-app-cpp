@@ -1,3 +1,4 @@
+Q ?= @
 APP_INDEX ?= 0
 BUILD_DIR = target
 
@@ -22,27 +23,32 @@ src += $(addprefix eadk/,\
 
 SFLAGS = -I. -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -Isrc
 CPPFLAGS = -Os -std=c++11 -fdata-sections -ffunction-sections -fpie -fno-exceptions -ffreestanding -fno-rtti -nostdinc -nostdlib -fno-threadsafe-statics
-LFLAGS =  -Wl,--gc-sections -lgcc -Leadk -Wl,-T,eadk.ld
+LFLAGS =  -Wl,--gc-sections -lgcc -Wl,-T,eadk/eadk.ld
 
 .PHONY: run
 run: $(BUILD_DIR)/external_application.elf
-	python3 eadk/run.py $^ --app-index $(APP_INDEX)
+	@echo "RUN    $^"
+	$(Q) python3 eadk/run.py $^ --app-index $(APP_INDEX)
 
 .PHONY: build
 build: $(BUILD_DIR)/external_application.elf
 
 $(BUILD_DIR)/external_application.elf: $(call object_for,$(src)) eadk/eadk.ld $(BUILD_DIR)/icon.ld
-	arm-none-eabi-gcc $(LFLAGS) $(SFLAGS) $(filter-out %.ld,$^) -o $@
+	@echo "LD     $@"
+	$(Q) arm-none-eabi-gcc $(LFLAGS) $(SFLAGS) $(filter-out %.ld,$^) -o $@
 
 $(addprefix $(BUILD_DIR)/,%.o): %.cpp | $(BUILD_DIR)
-	arm-none-eabi-g++ $(CPPFLAGS) $(SFLAGS) -c $^ -o $@
+	@echo "CXX    $^"
+	$(Q) arm-none-eabi-g++ $(CPPFLAGS) $(SFLAGS) -c $^ -o $@
 
 $(addprefix $(BUILD_DIR)/,%.o): %.s | $(BUILD_DIR)
-	arm-none-eabi-as $^ -o $@
+	@echo "AS     $^"
+	$(Q) arm-none-eabi-as $^ -o $@
 
 .PRECIOUS: $(BUILD_DIR)/icon.ld
 $(BUILD_DIR)/icon.ld: src/icon.png | $(BUILD_DIR)
-	python3 eadk/inliner.py $< $@
+	@echo "INLINE $<"
+	$(Q) python3 eadk/inliner.py $< $@
 
 .PRECIOUS: $(BUILD_DIR)
 $(BUILD_DIR):
