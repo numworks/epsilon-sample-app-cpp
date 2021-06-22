@@ -40,7 +40,7 @@ void Alien::step() {
   }
 }
 
-bool Alien::hits(Spaceship * s) {
+bool Alien::tryToHit(Spaceship * s) {
   if (isGhost()) {
     return false;
   }

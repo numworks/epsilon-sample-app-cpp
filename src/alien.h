@@ -12,7 +12,7 @@ public:
   int x() const { return m_x; }
   int y() const { return m_y; }
   void step();
-  bool hits(Spaceship * s);
+  bool tryToHit(Spaceship * s);
   bool isGhost() const { return m_x == -1; }
   void killed();
   static constexpr int k_stepPeriod = 10;

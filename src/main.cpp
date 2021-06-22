@@ -11,7 +11,7 @@ extern "C" const char eadk_app_name[] = "Voord";
 //__attribute((used)) eadk_app_name;
 void checkForSpaceshipAlienCollisions(Alien aliens[], int numberOfAliens, Spaceship * spaceship) {
   for (int i = 0; i < numberOfAliens; i++) {
-    if (aliens[i].hits(spaceship)) {
+    if (aliens[i].tryToHit(spaceship)) {
       eadk_display_push_rect_uniform({.x = 0, .y = 0, .width = Display::Width, .height = Display::Height}, Red);
       while (1) {}
     }
