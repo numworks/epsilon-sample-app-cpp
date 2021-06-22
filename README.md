@@ -67,7 +67,7 @@ Epsilon expects apps to follow a certain layout in memory. Namely, they should s
 
 Generating the appropriate header is taken care of by a [linker script](/eadk/eadk.ld) when you run `make build`. Once the corresponding binary is built on your computer, you will need to install it at address `0x90350000` and `0x90750000` in your calculator's Flash memory. The included [run.py](/eadk/run.py) script will take care of this for you when you call `make run`.
 
-Due to the embedded nature of Epsilon, the C++ app has to be `no_std`. The interface that an app can use to interact with the OS is essentially a short list of system calls. Feel free to browse the [code of Epsilon](http://github.com/numworks/epsilon) itself if you want to get an in-depth look.
+Due to the embedded nature of Epsilon, this C++ app is built using `-ffreestanding -nostdinc -nostdlib`. The interface that an app can use to interact with the OS is essentially a short list of system calls. Feel free to browse the [code of Epsilon](http://github.com/numworks/epsilon) itself if you want to get an in-depth look.
 
 Please note that any custom app is removed when resetting the calculator.
 
