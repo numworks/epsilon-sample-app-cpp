@@ -9,7 +9,7 @@ extern "C" void eadk_main();
 extern "C" const char eadk_app_name[] = "Voord";
 
 //__attribute((used)) eadk_app_name;
-void checkForSpaceshipAliensCollisions(Alien aliens[], int numberOfAliens, Spaceship * spaceship) {
+void checkForSpaceshipAlienCollisions(Alien aliens[], int numberOfAliens, Spaceship * spaceship) {
   for (int i = 0; i < numberOfAliens; i++) {
     if (aliens[i].hits(spaceship)) {
       eadk_display_push_rect_uniform({.x = 0, .y = 0, .width = Display::Width, .height = Display::Height}, Red);
@@ -57,7 +57,7 @@ void eadk_main() {
       spaceship.move(Spaceship::k_step, 0);
     }
 
-    checkForSpaceshipAliensCollisions(aliens, k_maxNumberOfAliens, &spaceship);
+    checkForSpaceshipAlienCollisions(aliens, k_maxNumberOfAliens, &spaceship);
 
     if (rocketTimer == Rocket::k_period) {
       rocketTimer = 0;
@@ -71,7 +71,7 @@ void eadk_main() {
       for (int i = 0; i < k_maxNumberOfAliens; i++) {
         aliens[i].step();
       }
-      checkForSpaceshipAliensCollisions(aliens, k_maxNumberOfAliens, &spaceship);
+      checkForSpaceshipAlienCollisions(aliens, k_maxNumberOfAliens, &spaceship);
       checkForRocketsAliensCollisions(&spaceship, aliens, k_maxNumberOfAliens);
     }
 
