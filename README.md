@@ -8,9 +8,13 @@ This is a sample C++ app to use on a [NumWorks calculator](https://www.numworks.
 
 ```cpp
 void eadk_main() {
-  eadk_display_push_rect_uniform({.x = 0, .y = 0, .width = Display::Width, .height = Display::Height}, Black);
+  eadk_display_push_rect_uniform(
+      {0, 0, Display::Width, Display::Height},
+      Black
+    );
 
   /*...*/
+
   while (1) {
     eadk_keyboard_state keyboardState = eadk_keyboard_scan();
     if (keyboardState & stateWithKeyDown(eadk_key::OK)) {
@@ -29,16 +33,21 @@ void eadk_main() {
       spaceship.move(Spaceship::k_step, 0);
     }
 
-    checkForSpaceshipAlienCollisions(aliens, k_maxNumberOfAliens, &spaceship);
+    checkForSpaceshipAlienCollisions(
+        aliens,
+        k_maxNumberOfAliens,
+        &spaceship
+      );
 
     /*... */
+
   }
 }
 ```
 
 ## Build the app
 
-You need to install an embedded ARM toolchain as well as the corresponding rust target and a couple Python modules.
+You need to install an embedded ARM toolchain and a couple Python modules.
 
 ```shell
 brew install numworks/tap/arm-none-eabi-gcc # Or equivalent on your OS
