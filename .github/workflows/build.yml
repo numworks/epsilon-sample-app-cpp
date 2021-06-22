@@ -1,0 +1,15 @@
+name: Build
+on: [pull_request, push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install C++ toolchain
+        uses: numworks/setup-arm-toolchain@2020-q2
+      - name: Install build-time Python dependencies
+        run: pip3 install lz4 pypng
+      - name: Run make build
+        run: make clean && make build
