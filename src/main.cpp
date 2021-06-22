@@ -19,9 +19,11 @@ void checkForSpaceshipAlienCollisions(Alien aliens[], int numberOfAliens, Spaces
 }
 
 void checkForRocketsAliensCollisions(Spaceship * spaceship, Alien aliens[], int numberOfAliens) {
-  for (int i = 0; i < spaceship->numberOfRockets(); i++) {
+  int nbOfRockets = spaceship->numberOfRockets();
+  for (int i = 0; i < nbOfRockets; i++) {
+    Rocket * rocket = spaceship->rocketAtIndex(i);
     for (int j = 0; j < numberOfAliens; j++) {
-      spaceship->rocketAtIndex(i)->tryToKill(&aliens[j]);
+      rocket->tryToKill(&aliens[j]);
     }
   }
 }
