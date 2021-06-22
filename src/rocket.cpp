@@ -9,13 +9,13 @@ void Rocket::setLocation(int x, int y) {
   draw(LightBlue);
 }
 
-void Rocket::draw(const eadk_color c) const {
+void Rocket::draw(const EADK::Display::Color c) const {
   if (off()) {
     return;
   }
-  eadk_display_push_rect_uniform({.x = m_x, .y = m_y - k_length/2, .width = 1, .height = 8}, c);
-  eadk_display_push_rect_uniform({.x = m_x, .y = m_y - k_length/2 + 8 + 1, .width = 1, .height = 2}, c);
-  eadk_display_push_rect_uniform({.x = m_x, .y = m_y + k_length/2, .width = 1, .height = 1}, c);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(m_x, m_y - k_length/2, 1, 8), c);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(m_x, m_y - k_length/2 + 8 + 1, 1, 2), c);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(m_x, m_y + k_length/2, 1, 1), c);
 }
 
 void Rocket::forward() {

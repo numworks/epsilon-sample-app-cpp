@@ -7,6 +7,7 @@ endef
 
 src = $(addprefix src/,\
   alien.cpp \
+  eadk.cpp \
   life.cpp \
   main.cpp \
   memcpy.cpp \

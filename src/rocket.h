@@ -2,9 +2,7 @@
 #define ROCKET_H
 
 #include "display.h"
-extern "C" {
-#include "../eadk/eadk.h"
-}
+#include "eadk.h"
 
 class Alien;
 
@@ -20,7 +18,7 @@ public:
   static constexpr int k_period = 5;
 private:
   static constexpr int k_length = 13;
-  void draw(const eadk_color c) const;
+  void draw(const EADK::Display::Color c) const;
   void switchOff() { m_y = -1; }
   int m_x;
   int m_y;

@@ -12,19 +12,19 @@ Alien::Alien(int x) :
 }
 
 void Alien::hide() const {
-  eadk_display_push_rect_uniform({m_x - k_width/2, m_y - k_height/2, k_width, k_height}, Black);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(m_x - k_width/2, m_y - k_height/2, k_width, k_height), Black);
 }
 
-void Alien::draw(const eadk_color c) const {
+void Alien::draw(const EADK::Display::Color c) const {
   int xMin = m_x - k_width/2;
   int xMax = xMin + k_width;
   int yMin = m_y - k_height/2;
   int yMax = yMin + k_height;
-  eadk_display_push_rect_uniform({.x = xMin, .y = yMin, .width = k_width, .height = k_height - 4}, c);
-  eadk_display_push_rect_uniform({.x = xMin + 3, .y =  yMax - 4, .width = 2, .height = 4}, c);
-  eadk_display_push_rect_uniform({.x = xMax - 4 - 2, .y = yMax - 4, .width = 2, .height = 4}, c);
-  eadk_display_push_rect_uniform({.x = xMin + 2, .y = yMin + 3, .width = 3, .height = 7}, Black);
-  eadk_display_push_rect_uniform({.x = xMax - 2 - 3, .y = yMin + 3, .width = 3, .height = 7}, Black);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin, yMin, k_width, k_height - 4), c);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 3,  yMax - 4, 2, 4), c);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(xMax - 4 - 2, yMax - 4, 2, 4), c);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 2, yMin + 3, 3, 7), Black);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(xMax - 2 - 3, yMin + 3, 3, 7), Black);
 }
 
 void Alien::step() {
@@ -56,9 +56,9 @@ bool Alien::tryToHit(Spaceship * s) {
 void Alien::killed() {
   for (int i = 0; i < 5; i++) {
     draw(Green);
-    eadk_timing_msleep(10);
+    EADK::Timing::msleep(10);
     draw(Orange);
-    eadk_timing_msleep(10);
+    EADK::Timing::msleep(10);
   }
   hide();
   ghostify();

@@ -1,10 +1,8 @@
 #ifndef ALIEN_H
 #define ALIEN_H
 
+#include "eadk.h"
 #include "spaceship.h"
-extern "C" {
-#include "../eadk/eadk.h"
-}
 
 class Alien {
 public:
@@ -20,7 +18,7 @@ public:
   static constexpr int k_width = 15;
   static constexpr int k_height = 18;
 private:
-  void draw(const eadk_color c) const;
+  void draw(const EADK::Display::Color c) const;
   void hide() const;
   void ghostify() { m_x = -1; }
   static constexpr int k_step = 10;

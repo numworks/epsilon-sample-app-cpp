@@ -2,11 +2,9 @@
 #define SPACESHIP_H
 
 #include "display.h"
+#include "eadk.h"
 #include "life.h"
 #include "rocket.h"
-extern "C" {
-#include "../eadk/eadk.h"
-}
 
 class Spaceship {
 public:
@@ -28,7 +26,7 @@ private:
   static constexpr int k_xUpperBound = Display::Width - Display::CommonHorizontalMargin;
   static constexpr int k_yLowerBound = 3*Display::CommonVerticalMargin;
   static constexpr int k_yUpperBound = Display::Height - Display::CommonVerticalMargin;
-  void draw(const eadk_color c) const;
+  void draw(const EADK::Display::Color c) const;
   int m_x;
   int m_y;
   Rocket m_rockets[k_maxNumberOfRockets];

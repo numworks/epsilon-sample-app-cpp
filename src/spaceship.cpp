@@ -13,20 +13,20 @@ Spaceship::Spaceship() :
     m_lives[i].draw();
   }
 }
-void Spaceship::draw(const eadk_color color) const {
+void Spaceship::draw(const EADK::Display::Color color) const {
   int xMin = m_x - k_width/2;
   int xMax = xMin + k_width;
   int yMin = m_y - k_height/2;
-  eadk_display_push_rect_uniform({.x = xMin + 11, .y = yMin + 10, .width = 13, .height = 11}, color);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 11, yMin + 10, 13, 11), color);
   // Wings
-  eadk_display_push_rect_uniform({.x = xMin, .y = yMin + 14, .width = k_width, .height = 2}, color);
-  eadk_display_push_rect_uniform({.x = xMin + 3, .y = yMin + 17, .width = k_width - 6, .height = 2}, color);
-  eadk_display_push_rect_uniform({.x = xMin + 2, .y = yMin + 8, .width = 1, .height = 6}, color);
-  eadk_display_push_rect_uniform({.x = xMax - 3, .y = yMin + 8, .width = 1, .height = 6}, color);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin, yMin + 14, k_width, 2), color);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 3, yMin + 17, k_width - 6, 2), color);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 2, yMin + 8, 1, 6), color);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(xMax - 3, yMin + 8, 1, 6), color);
   // Nose
-  eadk_display_push_rect_uniform({.x = xMin + 15, .y = yMin + 6, .width = 5, .height = 4}, color);
-  eadk_display_push_rect_uniform({.x = xMin + 16, .y = yMin + 4, .width = 3, .height = 2}, color);
-  eadk_display_push_rect_uniform({.x = xMin + 17, .y = yMin, .width = 1, .height = 4}, color);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 15, yMin + 6, 5, 4), color);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 16, yMin + 4, 3, 2), color);
+  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 17, yMin, 1, 4), color);
 }
 
 void Spaceship::move(int deltaX, int deltaY) {
@@ -45,9 +45,9 @@ bool Spaceship::hit() {
   m_numberOfLives--;
   for (int i = 0; i < 5; i++) {
     draw(Red);
-    eadk_timing_msleep(10);
+    EADK::Timing::msleep(10);
     draw(Yellow);
-    eadk_timing_msleep(10);
+    EADK::Timing::msleep(10);
   }
   return m_numberOfLives == 0;
 }
