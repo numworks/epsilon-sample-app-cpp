@@ -1,21 +1,17 @@
 #include "eadk.h"
 
+static_assert(sizeof(EADK::Display::Color) == 2, "EADK::Display::Color should be 2 bytes long");
+static_assert(sizeof(EADK::Display::Rect) == 8, "EADK::Display::Rect should be 4*2 bytes long");
+static_assert(sizeof(EADK::Keyboard::State) == 8, "EADK::Display::Rect should be 64 bits long");
+
 extern "C" {
 
 // Display
-typedef uint16_t eadk_color;
-typedef struct {
-  uint16_t x;
-  uint16_t y;
-  uint16_t width;
-  uint16_t height;
-} eadk_rect;
-void eadk_display_push_rect(eadk_rect rect, const eadk_color * pixels);
-void eadk_display_push_rect_uniform(eadk_rect rect, eadk_color color);
+void eadk_display_push_rect(EADK::Display::Rect rect, const EADK::Display::Color * pixels);
+void eadk_display_push_rect_uniform(EADK::Display::Rect rect, EADK::Display::Color color);
 
 // Keyboard
-typedef uint64_t eadk_keyboard_state;
-eadk_keyboard_state eadk_keyboard_scan();
+EADK::Keyboard::State eadk_keyboard_scan();
 
 // Timing
 void eadk_timing_msleep(uint32_t ms);
@@ -30,11 +26,11 @@ namespace EADK {
 namespace Display {
 
 void pushRect(Rect rect, const Color * pixels) {
-  eadk_display_push_rect({rect.x(), rect.y(), rect.width(), rect.height()}, reinterpret_cast<const eadk_color *>(pixels));
+  eadk_display_push_rect(rect, pixels);
 }
 
 void pushRectUniform(Rect rect, Color color) {
-  eadk_display_push_rect_uniform({rect.x(), rect.y(), rect.width(), rect.height()}, color);
+  eadk_display_push_rect_uniform(rect, color);
 }
 
 }
