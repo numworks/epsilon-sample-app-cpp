@@ -19,8 +19,8 @@ src += $(addprefix eadk/,\
   eadk.s \
 )
 
-SFLAGS = -Os -I. -Wall -MD -MP -ggdb3 -fdata-sections -ffunction-sections -fpie -mthumb -mfloat-abi=hard -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -ffreestanding -nostdinc -nostdlib -Wno-narrowing -Isrc
-CPPFLAGS = -std=c++11 -fno-exceptions -fno-rtti -fno-threadsafe-statics
+SFLAGS = -I. -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -Isrc
+CPPFLAGS = -Os -std=c++11 -fdata-sections -ffunction-sections -fpie -fno-exceptions -ffreestanding -fno-rtti -nostdinc -nostdlib -fno-threadsafe-statics -Wno-narrowing
 LFLAGS =  -Wl,--gc-sections -lgcc -Leadk -Wl,-T,eadk.ld
 
 .PHONY: run
@@ -37,7 +37,7 @@ $(addprefix $(BUILD_DIR)/,%.o): %.cpp | $(BUILD_DIR)
 	arm-none-eabi-g++ $(CPPFLAGS) $(SFLAGS) -c $^ -o $@
 
 $(addprefix $(BUILD_DIR)/,%.o): %.s | $(BUILD_DIR)
-	arm-none-eabi-gcc $(SFLAGS) -c $^ -o $@
+	arm-none-eabi-as $(SFLAGS) -c $^ -o $@
 
 .PRECIOUS: $(BUILD_DIR)/icon.ld
 $(BUILD_DIR)/icon.ld: src/icon.png | $(BUILD_DIR)
