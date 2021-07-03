@@ -2,7 +2,7 @@
 
 static_assert(sizeof(EADK::Display::Color) == 2, "EADK::Display::Color should be 2 bytes long");
 static_assert(sizeof(EADK::Display::Rect) == 8, "EADK::Display::Rect should be 4*2 bytes long");
-static_assert(sizeof(EADK::Keyboard::State) == 8, "EADK::Display::Rect should be 64 bits long");
+static_assert(sizeof(EADK::Keyboard::State) == 8, "EADK::Display::State should be 64 bits long");
 
 extern "C" {
 
