@@ -116,6 +116,7 @@ void msleep(uint32_t ms);
 
 }
 
+void heapRange(uint32_t * start, uint32_t * end);
 uint32_t random();
 
 }

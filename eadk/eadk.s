@@ -204,6 +204,16 @@ eadk_timing_usleep:
 
 @@@ Misc
 
+@ void eadk_heap_range(u32 start_address, u32 end_address)
+.global eadk_heap_range
+eadk_heap_range:
+   mov r3, pc
+   lsrs r3, r3, #22
+   lsls r3, r3, #22
+   add r3, r3, #65536
+   ldr r3, [r3, #40]
+   bx r3
+
 @ u32 eadk_random()
 .global eadk_random
 eadk_random:
