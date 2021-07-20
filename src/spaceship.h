@@ -16,6 +16,7 @@ public:
   void createRockets();
   int numberOfRockets() const { return k_maxNumberOfRockets; }
   Rocket * rocketAtIndex(int index) { return &m_rockets[index]; }
+  void redrawLives();
   static constexpr int k_step = 10;
   static constexpr int k_width = 35;
   static constexpr int k_height = 20;

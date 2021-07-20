@@ -13,6 +13,7 @@ Spaceship::Spaceship() :
     m_lives[i].draw();
   }
 }
+
 void Spaceship::draw(const EADK::Display::Color color) const {
   int xMin = m_x - k_width/2;
   int xMax = xMin + k_width;
@@ -72,3 +73,10 @@ void Spaceship::createRockets() {
     }
   }
 }
+
+void Spaceship::redrawLives() {
+  for (int i = 0; i < k_maxNumberOfLives; i++) {
+    m_lives[i].draw();
+  }
+}
+

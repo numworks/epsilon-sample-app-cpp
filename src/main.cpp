@@ -65,6 +65,7 @@ void eadk_main() {
         spaceship.rocketAtIndex(i)->forward();
       }
       checkForRocketsAliensCollisions(&spaceship, aliens, k_maxNumberOfAliens);
+      spaceship.redrawLives();
     }
 
     // Aliens move forward and potentially collide with rockets or spaceship
