@@ -17,16 +17,6 @@ void checkForSpaceshipAlienCollisions(Alien aliens[], int numberOfAliens, Spaces
   }
 }
 
-void checkForRocketsAliensCollisions(Spaceship * spaceship, Alien aliens[], int numberOfAliens) {
-  int nbOfRockets = spaceship->numberOfRockets();
-  for (int i = 0; i < nbOfRockets; i++) {
-    Rocket * rocket = spaceship->rocketAtIndex(i);
-    for (int j = 0; j < numberOfAliens; j++) {
-      rocket->tryToKill(&aliens[j]);
-    }
-  }
-}
-
 void eadk_main() {
   EADK::Display::pushRectUniform(EADK::Display::Rect(0, 0, Display::Width, Display::Height), Black);
 
@@ -61,11 +51,7 @@ void eadk_main() {
     // Rockets move forward and potentially collide
     if (rocketTimer == Rocket::k_period) {
       rocketTimer = 0;
-      for (int i = 0; i < spaceship.numberOfRockets(); i++) {
-        spaceship.rocketAtIndex(i)->forward();
-      }
-      checkForRocketsAliensCollisions(&spaceship, aliens, k_maxNumberOfAliens);
-      spaceship.redrawLives();
+      spaceship.rocketsAction(aliens, k_maxNumberOfAliens);
     }
 
     // Aliens move forward and potentially collide with rockets or spaceship
@@ -75,7 +61,7 @@ void eadk_main() {
         aliens[i].step();
       }
       checkForSpaceshipAlienCollisions(aliens, k_maxNumberOfAliens, &spaceship);
-      checkForRocketsAliensCollisions(&spaceship, aliens, k_maxNumberOfAliens);
+      spaceship.checkForRocketsAliensCollisions(aliens, k_maxNumberOfAliens);
     }
 
     EADK::Timing::msleep(20);

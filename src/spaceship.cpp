@@ -1,4 +1,5 @@
 #include "spaceship.h"
+#include "alien.h"
 #include "palette.h"
 
 Spaceship::Spaceship() :
@@ -74,9 +75,28 @@ void Spaceship::createRockets() {
   }
 }
 
+void Spaceship::rocketsAction(Alien aliens[], int numberOfAliens) {
+  for (int i = 0; i < k_maxNumberOfRockets; i++) {
+    m_rockets[i].forward();
+  }
+  checkForRocketsAliensCollisions(aliens, numberOfAliens);
+  redrawLives();
+
+}
+
 void Spaceship::redrawLives() {
   for (int i = 0; i < k_maxNumberOfLives; i++) {
     m_lives[i].draw();
   }
 }
 
+void Spaceship::checkForRocketsAliensCollisions(Alien aliens[], int numberOfAliens) {
+  for (int i = 0; i < k_maxNumberOfRockets; i++) {
+    for (int j = 0; j < numberOfAliens; j++) {
+      if (m_rockets[i].tryToKill(&aliens[j])) {
+        m_score.increment();
+      }
+    }
+  }
+  m_score.draw();
+}

@@ -27,14 +27,16 @@ void Rocket::forward() {
   draw(LightBlue);
 }
 
-void Rocket::tryToKill(Alien * a) {
+bool Rocket::tryToKill(Alien * a) {
   if (off() || a->isGhost()) {
-    return;
+    return false;
   }
   if (abs(m_x - a->x()) < Alien::k_width/2 &&
       abs(m_y - a->y()) < Alien::k_height/2 + k_length/2) {
     a->killed();
     draw(Black);
     switchOff();
+    return true;
   }
+  return false;
 }

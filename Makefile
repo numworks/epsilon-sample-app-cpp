@@ -15,6 +15,7 @@ src = $(addprefix src/,\
   memset.cpp \
   rocket.cpp \
   spaceship.cpp \
+  score.cpp \
 )
 
 src += $(addprefix eadk/,\

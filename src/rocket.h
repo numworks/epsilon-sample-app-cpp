@@ -13,7 +13,7 @@ public:
   int y() const { return m_y; }
   void setLocation(int x, int y);
   void forward();
-  void tryToKill(Alien * a);
+  bool tryToKill(Alien * a);
   bool off() const { return m_y < 0; }
   static constexpr int k_period = 5;
 private:

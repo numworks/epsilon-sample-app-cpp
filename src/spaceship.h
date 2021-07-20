@@ -5,6 +5,7 @@
 #include "eadk.h"
 #include "life.h"
 #include "rocket.h"
+#include "score.h"
 
 class Spaceship {
 public:
@@ -14,9 +15,8 @@ public:
   void move(int deltaX, int deltaY);
   bool hit();
   void createRockets();
-  int numberOfRockets() const { return k_maxNumberOfRockets; }
-  Rocket * rocketAtIndex(int index) { return &m_rockets[index]; }
-  void redrawLives();
+  void rocketsAction(Alien aliens[], int numberOfAliens);
+  void checkForRocketsAliensCollisions(Alien aliens[], int numberOfAliens);
   static constexpr int k_step = 10;
   static constexpr int k_width = 35;
   static constexpr int k_height = 20;
@@ -28,11 +28,13 @@ private:
   static constexpr int k_yLowerBound = 3*Display::CommonVerticalMargin;
   static constexpr int k_yUpperBound = Display::Height - Display::CommonVerticalMargin;
   void draw(const EADK::Display::Color c) const;
+  void redrawLives();
   int m_x;
   int m_y;
   Rocket m_rockets[k_maxNumberOfRockets];
   int m_numberOfLives;
   Life m_lives[k_maxNumberOfLives];
+  Score m_score;
 };
 
 #endif
