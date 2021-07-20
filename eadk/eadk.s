@@ -91,7 +91,7 @@ eadk_display_wait_for_vblank:
    uxtb r0, r4
    pop {r4, pc}
 
-@ void eadk_display_draw_string(u8 text, point p, u8 large_font, u16 text_color, u16 background_color)
+@ void eadk_display_draw_string(u32 text, point p, u8 large_font, u16 text_color, u16 background_color)
 .global eadk_display_draw_string
 eadk_display_draw_string:
    push {r0, r1, r4, r5}
@@ -102,7 +102,7 @@ eadk_display_draw_string:
    str r5, [sp, #16]
    lsls r4, r4, #22
    add r4, r4, #65536
-   ldr r4, [r4, #40]
+   ldr r4, [r4, #44]
    mov ip, r4
    add sp, sp, #8
    pop {r4, r5}
