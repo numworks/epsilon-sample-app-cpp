@@ -14,6 +14,17 @@ private:
   uint16_t m_value;
 };
 
+class Point {
+public:
+  constexpr Point(int x, int y) :
+    m_x(x), m_y(y) {}
+  uint16_t x() const { return m_x; }
+  uint16_t y() const { return m_y; }
+private:
+  uint16_t m_x;
+  uint16_t m_y;
+};
+
 class Rect {
 public:
   constexpr Rect(int x, int y, int width, int height) :
@@ -31,6 +42,7 @@ private:
 
 void pushRect(Rect rect, const Color * pixels);
 void pushRectUniform(Rect rect, Color color);
+void drawString(const char * text, Point point, bool largeFont, Color textColor, Color backgroundColor);
 
 }
 
