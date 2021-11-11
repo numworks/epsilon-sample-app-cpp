@@ -113,6 +113,7 @@ State scan();
 namespace Timing {
 
 void msleep(uint32_t ms);
+void waitForVblank();
 
 }
 
