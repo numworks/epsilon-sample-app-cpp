@@ -19,7 +19,7 @@ void eadk_timing_msleep(uint32_t ms);
 
 // Misc
 uint32_t eadk_random();
-void eadk_heap_range(uint32_t * start, uint32_t * end);
+void eadk_app_sandbox_range(uint32_t * start, uint32_t * end);
 
 }
 
@@ -61,8 +61,8 @@ uint32_t random() {
   return eadk_random();
 }
 
-void heapRange(uint32_t * start, uint32_t * end) {
-  return eadk_heap_range(start, end);
+void appSandboxRange(uint32_t * start, uint32_t * end) {
+  return eadk_app_sandbox_range(start, end);
 }
 
 }
