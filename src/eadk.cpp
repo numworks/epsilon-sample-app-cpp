@@ -12,7 +12,7 @@ void eadk_display_push_rect_uniform(EADK::Display::Rect rect, EADK::Display::Col
 void eadk_display_draw_string(const char * text, EADK::Display::Point p, bool largeFont, EADK::Display::Color textColor, EADK::Display::Color backgroundColor);
 
 // Keyboard
-EADK::Keyboard::State eadk_keyboard_scan();
+uint64_t eadk_keyboard_scan();
 
 // Timing
 void eadk_timing_msleep(uint32_t ms);
@@ -43,7 +43,7 @@ void drawString(const char * text, EADK::Display::Point p, bool largeFont, EADK:
 namespace Keyboard {
 
 State scan() {
-  return eadk_keyboard_scan();
+  return State(eadk_keyboard_scan());
 }
 
 }
