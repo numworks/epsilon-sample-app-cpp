@@ -31,11 +31,12 @@ void eadk_main() {
 ## Build the app
 
 You need to install an embedded ARM toolchain and a couple Python modules.
+The last command has to be executed with the targeted device plugged to the computer.
 
 ```shell
 brew install numworks/tap/arm-none-eabi-gcc # Or equivalent on your OS
 pip3 install lz4 pypng
-make clean && make build
+make clean && make run
 ```
 
 ## Run the app
@@ -65,7 +66,34 @@ Epsilon expects apps to follow a certain layout in memory. Namely, they should s
 | 0x18 | 0x04 | -          | Size of the entire app |
 | 0x22 | 0x04 | 0xDEC0BEBA | Magic end-of-header marker |
 
-Generating the appropriate header is taken care of by a [linker script](/eadk/eadk.ld) when you run `make build`. Once the corresponding binary is built on your computer, you will need to install it at address `0x90350000` and `0x90750000` in your calculator's Flash memory. The included [run.py](/eadk/run.py) script will take care of this for you when you call `make run`.
+Generating the appropriate header is taken care of by a [linker script](/eadk/eadk.ld) when you run `make build`.
+
+The information about where to link in flash and in RAM are dynamically extracted from headers provided by the calculator. The RAM is mapped from 0x2000 0000 and starts with the following header:
+
+|Offset| Size | Value      | Description                  |
+|------|------|------------|------------------------------|
+| 0x00 | 0x04 | 0xEFEEDBBA | Magic start-of-header marker |
+| 0x04 | 0x04 | -          | Pointer to kernel header |
+| 0x08 | 0x04 | -          | Pointer to userland header |
+| 0x0C | 0x04 | 0xEFEEDBBA | Magic end-of-header marker |
+
+The userland header gives the following information useful to link the external application:
+
+|Offset| Size | Value      | Description                  |
+|------|------|------------|------------------------------|
+| 0x00 | 0x04 | 0xDEC0EDFE | Magic start-of-header marker |
+| 0x04 | 0x04 | -          | Version of epsilon that should be matched by kernel |
+| 0x08 | 0x04 | -          | Storage address in RAM |
+| 0x0C | 0x04 | -          | Storage size |
+| 0x10 | 0x04 | -          | External applications start address in flash |
+| 0x14 | 0x04 | -          | External applications end address in flash |
+| 0x18 | 0x04 | -          | External applications start address in RAM |
+| 0x1C | 0x04 | -          | External applications end address in RAM |
+| 0x20 | 0x04 | 0xDEC0EDFE | Magic end-of-header marker |
+
+This dynamic linking process is taken care of by [get_device_information.py](/eadk/get_device_information.py) script.
+
+Once the corresponding binary is built on your computer, you will need to install it in your calculator's Flash memory. The included [run.py](/eadk/run.py) script will take care of this for you when you call `make run`.
 
 Due to the embedded nature of Epsilon, this C++ app is built using `-ffreestanding -nostdinc -nostdlib`. The interface that an app can use to interact with the OS is essentially a short list of system calls. Feel free to browse the [code of Epsilon](http://github.com/numworks/epsilon) itself if you want to get an in-depth look.
 
