@@ -11,7 +11,8 @@ jobs:
         uses: numworks/setup-arm-toolchain@2020-q2
       - name: Install build-time Python dependencies
         run: pip3 install lz4 pypng
-      - name: Run make build
+      - name: Generate dummy device information
         # Generate a dummy target/device_information.ld since it can't be extracted from a device
         run: mkdir target && echo "EXTERNAL_APPS_FLASH_START = 0x90120000;\nEXTERNAL_APPS_FLASH_END = 0x903f0000;\nEXTERNAL_APPS_RAM_START = 0x2001f494;\nEXTERNAL_APPS_RAM_END = 0x20037000;" >> target/device_information.ld
+      - name: Run make build
         run: make build
