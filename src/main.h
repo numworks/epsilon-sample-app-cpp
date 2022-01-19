@@ -1,7 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-void app_main();
+void eadk_main();
 
 #endif
-

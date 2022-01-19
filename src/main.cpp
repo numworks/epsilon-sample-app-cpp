@@ -4,10 +4,8 @@
 #include "palette.h"
 #include "spaceship.h"
 
-extern "C" void eadk_main();
 extern "C" const char eadk_app_name[] = "Voord";
 
-//__attribute((used)) eadk_app_name;
 void checkForSpaceshipAlienCollisions(Alien aliens[], int numberOfAliens, Spaceship * spaceship) {
   for (int i = 0; i < numberOfAliens; i++) {
     if (aliens[i].tryToHit(spaceship)) {
