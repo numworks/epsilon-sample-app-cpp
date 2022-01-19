@@ -4,6 +4,7 @@ import os.path
 import re
 import subprocess
 import sys
+import warnings
 
 def parse_slot_info(slot_info_file):
   data = open(slot_info_file, "rb").read()
@@ -26,12 +27,20 @@ def parse_userland_header(userland_header_file):
 def extract_device_info(linker_script_file_name, app_index = 0):
   # Extract information
   ram_address = 0x20000000
-  subprocess.check_output(["dfu-util", "-a", "0", "-s", str(hex(ram_address)) + ":16:force", "-U", "slot_info.bin"])
-  _,userland_header_address = parse_slot_info("slot_info.bin")
-  subprocess.check_output(["rm", "slot_info.bin"])
-  subprocess.check_output(["dfu-util", "-a", "0", "-s", str(hex(userland_header_address)) + ":40:force", "-U", "userland_header.bin"])
-  external_apps_flash_start, external_apps_flash_end, external_apps_ram_start, external_apps_ram_end = parse_userland_header("userland_header.bin")
-  subprocess.check_output(["rm", "userland_header.bin"])
+  try:
+    subprocess.check_output(["dfu-util", "-a", "0", "-s", str(hex(ram_address)) + ":16:force", "-U", "slot_info.bin"])
+    _,userland_header_address = parse_slot_info("slot_info.bin")
+    subprocess.check_output(["rm", "slot_info.bin"])
+    subprocess.check_output(["dfu-util", "-a", "0", "-s", str(hex(userland_header_address)) + ":40:force", "-U", "userland_header.bin"])
+    external_apps_flash_start, external_apps_flash_end, external_apps_ram_start, external_apps_ram_end = parse_userland_header("userland_header.bin")
+    subprocess.check_output(["rm", "userland_header.bin"])
+  except:
+    warnings.warn("Warning: a device should be plugged to extract the correct flash/RAM layout")
+    # No device plugged, default value
+    external_apps_flash_start = 0x90120000
+    external_apps_flash_end = 0x903f0000
+    external_apps_ram_start = 0x2001f494
+    external_apps_ram_end = 0x20037000
 
   # Store information and generate linker script
   linker_script = open(linker_script_file_name, "w")
