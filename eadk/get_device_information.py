@@ -24,7 +24,7 @@ def parse_userland_header(userland_header_file):
   external_apps_ram_end = int.from_bytes(result.group(4), "little")
   return external_apps_flash_start, external_apps_flash_end, external_apps_ram_start, external_apps_ram_end
 
-def extract_device_info(linker_script_file_name, app_index = 0):
+def extract_device_info(linker_script_file_name):
   # Extract information
   ram_address = 0x20000000
   try:

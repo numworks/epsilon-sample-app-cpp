@@ -23,7 +23,7 @@ def parse_device_information(device_information_file):
 
   return external_apps_flash_start, external_apps_flash_end, external_apps_ram_start, external_apps_ram_end
 
-def load_elf(elf_file, device_information, app_index = 0):
+def load_elf(elf_file, device_information, app_index):
   # Generate bin file
   bin_file = os.path.splitext(elf_file)[0] + ".bin"
   subprocess.check_output(["arm-none-eabi-objcopy", "-O", "binary", elf_file, bin_file])
@@ -41,8 +41,8 @@ def load_elf(elf_file, device_information, app_index = 0):
 
 parser = argparse.ArgumentParser(description="Load ELF file over USB")
 parser.add_argument('elf', metavar='file.elf', help='input ELF file')
-parser.add_argument('--app-index', metavar='i', help='Specify the application index')
-parser.add_argument('--device-information', metavar='file', help='Provide ld file with flash/RAM layout information')
+parser.add_argument('--app-index', metavar='i', default=0, help='Specify the application index')
+parser.add_argument('--device-information', default="target/device_information.ld", metavar='file', help='Provide ld file with flash/RAM layout information')
 
 args = parser.parse_args()
 load_elf(args.elf, args.device_information, args.app_index)
