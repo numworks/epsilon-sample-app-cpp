@@ -8,39 +8,26 @@ MEMORY {
 }
 
 SECTIONS {
-  .app_info ORIGIN(FLASH) : {
-    /* External apps header expects relative addresses. We subtract the
-     * EXTERNAL_APPS_FLASH_START from all absolute addresses. */
+  .eadk_app_info ORIGIN(FLASH) : {
     LONG(0xDEC0BEBA);
     LONG(0); /* API level 0 */
-    LONG(eadk_app_name - EXTERNAL_APPS_FLASH_START); /* There is an "app_name" symbol that points to a C-string */
+    LONG(eadk_app_name - EXTERNAL_APPS_FLASH_START); /* This symbol must be defined and point to a NULL-terminated UTF-8 string */
     LONG(_eadk_app_icon_end - _eadk_app_icon_start);
-    LONG(_eadk_app_icon_start - EXTERNAL_APPS_FLASH_START);
-    LONG(eadk_start - EXTERNAL_APPS_FLASH_START);
-    LONG(_eadk_app_end - EXTERNAL_APPS_FLASH_START);
+    LONG(_eadk_app_icon_start - ORIGIN(FLASH));
+    LONG(_eadk_start - ORIGIN(FLASH));
+    LONG(_eadk_app_end - ORIGIN(FLASH));
     LONG(0xDEC0BEBA);
   } >FLASH
 
   .text : {
-    . = ALIGN(4);
-    KEEP(*(*.eadk_start));
     *(.text)
-    *(.text.*)
   } >FLASH
 
   .rodata : {
-    KEEP(*(*.eadk_app_name));
-    *(.rodata)
-    *(.rodata.*)
-    INCLUDE "target/icon.ld";
-    _eadk_app_end = .;
-  } >FLASH
-
-  .init_array : {
     . = ALIGN(4);
-    _init_array_start = .;
-    KEEP (*(.init_array*))
-    _init_array_end = .;
+    *(.rodata)
+    _eadk_app_end = .;
+    ASSERT (SIZEOF(.init_array) == 0, "Error: init_array non-empty");
   } >FLASH
 
   .data : {
@@ -48,7 +35,6 @@ SECTIONS {
     _data_section_start_flash = LOADADDR(.data);
     _data_section_start_ram = .;
     *(.data)
-    *(.data.*)
     _data_section_end_ram = .;
   } >RAM AT >FLASH
 
@@ -56,7 +42,6 @@ SECTIONS {
     . = ALIGN(4);
     _bss_section_start_ram = .;
     *(.bss)
-    *(.bss.*)
     _bss_section_end_ram = .;
   } >RAM
 
@@ -65,9 +50,4 @@ SECTIONS {
     . = (ORIGIN(RAM) + LENGTH(RAM));
     _heap_end = .;
   } >RAM
-
-  /DISCARD/ : {
-    *(.ARM.exidx .ARM.exidx.*);
-  }
-
 }
