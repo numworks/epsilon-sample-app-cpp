@@ -8,6 +8,7 @@ SECTIONS {
   }
 
   .rodata : {
+    KEEP(*(*.eadk_app_api_level));
     KEEP(*(*.eadk_app_name));
     _eadk_app_icon_start = .;
     KEEP(*(*.eadk_app_icon));

@@ -5,6 +5,7 @@
 #include "spaceship.h"
 
 extern "C" const char eadk_app_name[] = "Voord";
+extern "C" const uint8_t eadk_app_api_level = 0;
 
 void checkForSpaceshipAlienCollisions(Alien aliens[], int numberOfAliens, Spaceship * spaceship) {
   for (int i = 0; i < numberOfAliens; i++) {
