@@ -19,10 +19,6 @@ src = $(addprefix src/,\
   start.cpp \
 )
 
-src += $(addprefix eadk/,\
-  eadk.s \
-)
-
 SFLAGS = -I. -Isrc -Os -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7  -mfloat-abi=hard -mfpu=fpv5-sp-d16 -Isrc
 SFLAGS += -fno-common -fdata-sections -ffunction-sections -fno-exceptions
 CPPFLAGS = -std=c++11 -ffreestanding -fno-rtti -nostdinc -nostdlib -fno-threadsafe-statics
@@ -37,9 +33,9 @@ run: $(BUILD_DIR)/slotted.elf $(BUILD_DIR)/device_information.ld
 .PHONY: build
 build: $(BUILD_DIR)/external_application.nwa
 
-$(BUILD_DIR)/slotted.elf: $(BUILD_DIR)/external_application.nwa $(BUILD_DIR)/device_information.ld
+$(BUILD_DIR)/slotted.elf: $(BUILD_DIR)/external_application.nwa $(call object_for,eadk/eadk.s) $(BUILD_DIR)/device_information.ld
 	@echo "LD     $@"
-	$(Q) arm-none-eabi-ld -T eadk/eadk-slotted.ld $^ -o $@
+	$(Q) arm-none-eabi-ld -T eadk/eadk-slotted.ld $(filter-out %.ld,$^) -o $@
 
 $(BUILD_DIR)/external_application.nwa: $(call object_for,$(src)) $(BUILD_DIR)/icon.o
 	@echo "LD     $@"
