@@ -10,11 +10,11 @@ extern char _bss_section_end_ram;
 extern char _init_array_start;
 extern char _init_array_end;
 
-extern "C" void eadk_start();
+extern "C" void _eadk_start();
 
 typedef void (*cxx_constructor)();
 
-void eadk_start() {
+void _eadk_start() {
   /* Copy data section to RAM
    * The data section is R/W but its initialization value matters. It's stored
    * in Flash, but linked as if it were in RAM. Now's our opportunity to copy

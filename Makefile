@@ -23,21 +23,27 @@ src += $(addprefix eadk/,\
   eadk.s \
 )
 
-SFLAGS = -I. -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7 -mfpu=fpv5-sp-d16 -Isrc
-CPPFLAGS = -Os -std=c++11 -fdata-sections -ffunction-sections -fno-exceptions -ffreestanding -fno-rtti -nostdinc -nostdlib -fno-threadsafe-statics
-LFLAGS =  -Wl,--gc-sections -lgcc -Wl,-T,eadk/eadk.ld
+SFLAGS = -I. -Isrc -Os -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7  -mfloat-abi=hard -mfpu=fpv5-sp-d16 -Isrc
+SFLAGS += -fno-common -fdata-sections -ffunction-sections -fno-exceptions
+CPPFLAGS = -std=c++11 -ffreestanding -fno-rtti -nostdinc -nostdlib -fno-threadsafe-statics
+LDFLAGS = -e _eadk_start -Wl,--gc-sections -lgcc -Wl,-T,eadk/eadk-pack.ld -Wl,-Ur
+LDFLAGS += --specs=nosys.specs -nostartfiles -lm
 
 .PHONY: run
-run: $(BUILD_DIR)/external_application.elf $(BUILD_DIR)/device_information.ld
+run: $(BUILD_DIR)/slotted.elf $(BUILD_DIR)/device_information.ld
 	@echo "RUN    $<"
 	$(Q) python3 eadk/run.py $< --app-index $(APP_INDEX) --device-information $(filter-out $<,$^)
 
 .PHONY: build
-build: $(BUILD_DIR)/external_application.elf $(BUILD_DIR)/device_information.ld
+build: $(BUILD_DIR)/external_application.nwa
 
-$(BUILD_DIR)/external_application.elf: $(call object_for,$(src)) eadk/eadk.ld $(BUILD_DIR)/icon.ld $(BUILD_DIR)/device_information.ld
+$(BUILD_DIR)/slotted.elf: $(BUILD_DIR)/external_application.nwa $(BUILD_DIR)/device_information.ld
 	@echo "LD     $@"
-	$(Q) arm-none-eabi-gcc $(LFLAGS) $(SFLAGS) $(filter-out %.ld,$^) -o $@
+	$(Q) arm-none-eabi-ld -T eadk/eadk-slotted.ld $^ -o $@
+
+$(BUILD_DIR)/external_application.nwa: $(call object_for,$(src)) $(BUILD_DIR)/icon.o
+	@echo "LD     $@"
+	$(Q) arm-none-eabi-gcc $(LDFLAGS) $(SFLAGS) $(filter-out %.ld,$^) -o $@
 
 $(addprefix $(BUILD_DIR)/,%.o): %.cpp | $(BUILD_DIR)
 	@echo "CXX    $^"
@@ -47,8 +53,13 @@ $(addprefix $(BUILD_DIR)/,%.o): %.s | $(BUILD_DIR)
 	@echo "AS     $^"
 	$(Q) arm-none-eabi-as $^ -o $@
 
-.PRECIOUS: $(BUILD_DIR)/icon.ld
-$(BUILD_DIR)/icon.ld: src/icon.png | $(BUILD_DIR)
+# This recipe is needed to build the icon
+$(addprefix $(BUILD_DIR)/,%.o): $(BUILD_DIR)/%.c
+	@echo "CC     $^"
+	$(Q) arm-none-eabi-gcc $(CFLAGS) $(SFLAGS) -c $^ -o $@
+
+.PRECIOUS: $(BUILD_DIR)/icon.c
+$(BUILD_DIR)/icon.c: src/icon.png | $(BUILD_DIR)
 	@echo "INLINE $<"
 	$(Q) python3 eadk/inliner.py $< $@
 
