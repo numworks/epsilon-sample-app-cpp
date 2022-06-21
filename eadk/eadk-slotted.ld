@@ -10,7 +10,7 @@ MEMORY {
 SECTIONS {
   .eadk_app_info ORIGIN(FLASH) : {
     LONG(0xDEC0BEBA);
-    LONG(0); /* API level 0 */
+    LONG(eadk_app_api_level - EXTERNAL_APPS_FLASH_START); /* API level 0 */
     LONG(eadk_app_name - EXTERNAL_APPS_FLASH_START); /* This symbol must be defined and point to a NULL-terminated UTF-8 string */
     LONG(_eadk_app_icon_end - _eadk_app_icon_start);
     LONG(_eadk_app_icon_start - ORIGIN(FLASH));
