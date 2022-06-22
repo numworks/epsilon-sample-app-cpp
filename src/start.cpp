@@ -28,15 +28,6 @@ void _eadk_start() {
   size_t bssSectionLength = (&_bss_section_end_ram - &_bss_section_start_ram);
   memset(&_bss_section_start_ram, 0, bssSectionLength);
 
-  /* Assert that we don't rely on any static C++ object constructor because:
-   * - The NumWorks app uploader doest not expect an init_array section
-   * - In practice, static initialized objects are a terrible idea. Since the
-   *   init order is not specified, most often than not this yields the dreaded
-   *   static init order fiasco. */
-  if (&_init_array_start != &_init_array_end) {
-    return;
-  }
-
   // Jump to main
   eadk_main();
 }

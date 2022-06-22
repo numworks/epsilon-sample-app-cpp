@@ -25,9 +25,7 @@ SECTIONS {
   }
 
   .init_array : {
-    _init_array_start = .;
     KEEP (*(.init_array*))
-    _init_array_end = .;
   }
 
   .data : {
@@ -44,3 +42,5 @@ SECTIONS {
     *(.ARM.exidx .ARM.exidx.*);
   }
 }
+
+ASSERT(SIZEOF(.init_array) == 0, "Some C++ global variables require a static object constructor. They should be removed (using singleton) because the NumWorks app uploader doest not expect an init_array section. Moreover, in practice, static initialized objects are often a terrible idea: since the init order is not specified, most often than not this yields the dreaded static init order fiasco.")
