@@ -7,12 +7,19 @@ SECTIONS {
     *(.text.*)
   }
 
-  .rodata : {
+  .rodata.eadk_app_api_level : {
     KEEP(*(*.eadk_app_api_level));
+  }
+
+  .rodata.eadk_app_name : {
     KEEP(*(*.eadk_app_name));
-    _eadk_app_icon_start = .;
+  }
+
+  .rodata.eadk_app_icon : {
     KEEP(*(*.eadk_app_icon));
-    _eadk_app_icon_end = .;
+  }
+
+  .rodata : {
     *(.rodata)
     *(.rodata.*)
   }
