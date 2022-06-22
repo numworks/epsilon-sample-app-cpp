@@ -10,10 +10,10 @@ MEMORY {
 SECTIONS {
   .eadk_app_info ORIGIN(FLASH) : {
     LONG(0xDEC0BEBA);
-    LONG(eadk_app_api_level - EXTERNAL_APPS_FLASH_START); /* API level 0 */
-    LONG(eadk_app_name - EXTERNAL_APPS_FLASH_START); /* This symbol must be defined and point to a NULL-terminated UTF-8 string */
-    LONG(_eadk_app_icon_end - _eadk_app_icon_start);
-    LONG(_eadk_app_icon_start - ORIGIN(FLASH));
+    *(.rodata.eadk_app_api_level)
+    LONG(eadk_app_name - ORIGIN(FLASH)); /* This symbol must be defined and point to a NULL-terminated UTF-8 string */
+    LONG(SIZEOF(.rodata.eadk_app_icon));
+    LONG(ADDR(.rodata.eadk_app_icon) - ORIGIN(FLASH));
     LONG(_eadk_start - ORIGIN(FLASH));
     LONG(_eadk_app_end - ORIGIN(FLASH));
     LONG(0xDEC0BEBA);
