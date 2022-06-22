@@ -22,22 +22,22 @@ src = $(addprefix src/,\
 SFLAGS = -I. -Isrc -Os -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7  -mfloat-abi=hard -mfpu=fpv5-sp-d16 -Isrc
 SFLAGS += -fno-common -fdata-sections -ffunction-sections -fno-exceptions
 CPPFLAGS = -std=c++11 -ffreestanding -fno-rtti -nostdinc -nostdlib -fno-threadsafe-statics
-LDFLAGS = -e _eadk_start -Wl,--gc-sections -lgcc -Wl,-T,eadk/eadk-pack.ld -Wl,-Ur
+LDFLAGS = -e _eadk_start -Wl,--gc-sections -lgcc -Wl,-T,eadk/eadk-nwa.ld -Wl,-Ur
 LDFLAGS += --specs=nosys.specs -nostartfiles -lm
 
 .PHONY: run
-run: $(BUILD_DIR)/slotted.elf $(BUILD_DIR)/device_information.ld
+run: $(BUILD_DIR)/voord.elf $(BUILD_DIR)/device_information.ld
 	@echo "RUN    $<"
 	$(Q) python3 eadk/run.py $< --app-index $(APP_INDEX) --device-information $(filter-out $<,$^)
 
 .PHONY: build
-build: $(BUILD_DIR)/external_application.nwa
+build: $(BUILD_DIR)/voord.nwa
 
-$(BUILD_DIR)/slotted.elf: $(BUILD_DIR)/external_application.nwa $(call object_for,eadk/eadk.s) $(BUILD_DIR)/device_information.ld
+$(BUILD_DIR)/voord.elf: $(BUILD_DIR)/voord.nwa $(call object_for,eadk/eadk.s) $(BUILD_DIR)/device_information.ld
 	@echo "LD     $@"
-	$(Q) arm-none-eabi-ld -T eadk/eadk-slotted.ld $(filter-out %.ld,$^) -o $@
+	$(Q) arm-none-eabi-ld -T eadk/eadk-bin.ld $(filter-out %.ld,$^) -o $@
 
-$(BUILD_DIR)/external_application.nwa: $(call object_for,$(src)) $(BUILD_DIR)/icon.o
+$(BUILD_DIR)/voord.nwa: $(call object_for,$(src)) $(BUILD_DIR)/icon.o
 	@echo "LD     $@"
 	$(Q) arm-none-eabi-gcc $(LDFLAGS) $(SFLAGS) $(filter-out %.ld,$^) -o $@
 
