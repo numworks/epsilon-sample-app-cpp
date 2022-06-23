@@ -53,7 +53,7 @@ make run
 
 ## Notes
 
-The NumWorks calculator runs [Epsilon](http://github.com/numworks/epsilon), a tailor-made calculator operating system. Starting from version 16, Epsilon allows installing custom binary apps. To run this sample app, make sure your calculator is up-to-date by visiting https://my.numworks.com.
+The NumWorks calculator runs [Epsilon](http://github.com/numworks/epsilon), a tailor-made calculator operating system. Starting from version 16, Epsilon allows installing custom binary apps. To run this sample app, make sure your calculator is up-to-date by visiting <https://my.numworks.com>.
 
 Epsilon expects apps to follow a certain layout in memory. Namely, they should start with the following header:
 
