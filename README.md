@@ -31,17 +31,19 @@ void eadk_main() {
 ## Build the app
 
 You need to install an embedded ARM toolchain and a couple Python modules.
-The last command has to be executed with the targeted device plugged to the computer.
 
 ```shell
 brew install numworks/tap/arm-none-eabi-gcc # Or equivalent on your OS
 pip3 install lz4 pypng
-make clean && make run
+make clean && make build
 ```
 
-## Run the app
+Once you app 'target/voord.nwa' is built, you can upload it onto your calculator from [NumWorks online uploader](https://my.numworks.com/apps).
+
+## Run the app (development)
 
 The app is sent over to the calculator using the DFU protocol over USB.
+The last command has to be executed with the targeted device plugged to the computer.
 
 ```shell
 brew install dfu-util # Or equivalent on your OS
@@ -51,7 +53,7 @@ make run
 
 ## Notes
 
-The NumWorks calculator runs [Epsilon](http://github.com/numworks/epsilon), a tailor-made calculator operating system. Starting from version 16, Epsilon allows installing custom binary apps. To run this sample app, make sure your calculator is up-to-date by visiting https://my.numworks.com. Note that at the moment Epsilon 16 is in beta, so you'll need to register as [a beta tester](https://my.numworks.com/user/beta).
+The NumWorks calculator runs [Epsilon](http://github.com/numworks/epsilon), a tailor-made calculator operating system. Starting from version 16, Epsilon allows installing custom binary apps. To run this sample app, make sure your calculator is up-to-date by visiting https://my.numworks.com.
 
 Epsilon expects apps to follow a certain layout in memory. Namely, they should start with the following header:
 
@@ -66,7 +68,7 @@ Epsilon expects apps to follow a certain layout in memory. Namely, they should s
 | 0x18 | 0x04 | -          | Size of the entire app |
 | 0x22 | 0x04 | 0xDEC0BEBA | Magic end-of-header marker |
 
-Generating the appropriate header is taken care of by a [linker script](/eadk/eadk.ld) when you run `make build`.
+Generating the appropriate header is taken care of by a [linker script](/eadk/eadk-bin.ld) when you run `make run`.
 
 The information about where to link in flash and in RAM are dynamically extracted from headers provided by the calculator. The RAM is mapped from 0x2000 0000 and starts with the following header:
 
@@ -91,9 +93,9 @@ The userland header gives the following information useful to link the external 
 | 0x1C | 0x04 | -          | External applications end address in RAM |
 | 0x20 | 0x04 | 0xDEC0EDFE | Magic end-of-header marker |
 
-This dynamic linking process is taken care of by [get_device_information.py](/eadk/get_device_information.py) script.
+While you're developing your app, the dynamic linking process can be done by the [get_device_information.py](/eadk/get_device_information.py) script. Once the corresponding binary is built on your computer, you will need to install it in your calculator's Flash memory. The included [run.py](/eadk/run.py) script will take care of this for you when you call `make run`.
 
-Once the corresponding binary is built on your computer, you will need to install it in your calculator's Flash memory. The included [run.py](/eadk/run.py) script will take care of this for you when you call `make run`.
+In release, you only need the `voord.nwa` executable. The [NumWorks online uploader](https://my.numworks.com/apps) will handle for you the dynamic linking and the uploading process.
 
 Due to the embedded nature of Epsilon, this C++ app is built using `-ffreestanding -nostdinc -nostdlib`. The interface that an app can use to interact with the OS is essentially a short list of system calls. Feel free to browse the [code of Epsilon](http://github.com/numworks/epsilon) itself if you want to get an in-depth look.
 
