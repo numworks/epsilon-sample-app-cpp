@@ -14,12 +14,12 @@ _eadk_start:
   push {r3, lr}
   ldr r1, .L2+8
   subs r2, r2, r0
-  bl memcpy
+  bl eadk_memcpy
   ldr r0, .L2+12
   ldr r2, .L2+16
   movs r1, #0
   subs r2, r2, r0
-  bl memset
+  bl eadk_memset
   pop {r3, lr}
   b _eadk_main
 .L2:
@@ -32,9 +32,9 @@ _eadk_start:
 
 @@@ string.h
 
-@ void * memset(void * dest, int val, size_t len)
-.global memset
-memset:
+@ void * eadk_memset(void * dest, int val, size_t len)
+.global eadk_memset
+eadk_memset:
   add r2, r2, r0
   mov r3, r0
 .L3:
@@ -45,9 +45,9 @@ memset:
   strb r1, [r3], #1
   b .L3
 
-@ void * memcpy(void * dst, const void * src, size_t n)
-.global memcpy
-memcpy:
+@ void * eadk_memcpy(void * dst, const void * src, size_t n)
+.global eadk_memcpy
+eadk_memcpy:
   subs r3, r0, #1
   add r2, r2, r1
   push {r4, lr}
