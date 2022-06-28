@@ -19,7 +19,7 @@ src = $(addprefix src/,\
   start.cpp \
 )
 
-SFLAGS = -I. -Isrc -Os -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7  -mfloat-abi=hard -mfpu=fpv5-sp-d16 -Isrc
+SFLAGS = -I. -Isrc -Os -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7  -mfloat-abi=hard -mfpu=fpv5-sp-d16
 SFLAGS += -fno-common -fdata-sections -ffunction-sections -fno-exceptions
 CPPFLAGS = -std=c++11 -ffreestanding -fno-rtti -nostdinc -nostdlib -fno-threadsafe-statics
 LDFLAGS = -e _eadk_start -Wl,--gc-sections -lgcc -Wl,-T,eadk/eadk-nwa.ld -Wl,-Ur
