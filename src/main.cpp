@@ -6,6 +6,7 @@
 
 extern "C" const char eadk_app_name[] = "Voord";
 extern "C" const uint32_t eadk_app_api_level = 0;
+extern "C" void _eadk_main();
 
 void checkForSpaceshipAlienCollisions(Alien aliens[], int numberOfAliens, Spaceship * spaceship) {
   for (int i = 0; i < numberOfAliens; i++) {
@@ -16,7 +17,7 @@ void checkForSpaceshipAlienCollisions(Alien aliens[], int numberOfAliens, Spaces
   }
 }
 
-void eadk_main() {
+void _eadk_main() {
   EADK::Display::pushRectUniform(EADK::Display::Rect(0, 0, Display::Width, Display::Height), Black);
 
   constexpr int k_maxNumberOfAliens = 10;

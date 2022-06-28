@@ -4,6 +4,32 @@
 .thumb
 .thumb_func
 
+@@@ start
+
+@ void _eadk_start()
+.global _eadk_start
+_eadk_start:
+  ldr r0, .L2
+  ldr r2, .L2+4
+  push {r3, lr}
+  ldr r1, .L2+8
+  subs r2, r2, r0
+  bl memcpy
+  ldr r0, .L2+12
+  ldr r2, .L2+16
+  movs r1, #0
+  subs r2, r2, r0
+  bl memset
+  pop {r3, lr}
+  b _eadk_main
+.L2:
+.align 0
+  .word   _data_section_start_ram
+  .word   _data_section_end_ram
+  .word   _data_section_start_flash
+  .word   _bss_section_start_ram
+  .word   _bss_section_end_ram
+
 @@@ string.h
 
 @ void * memset(void * dest, int val, size_t len)

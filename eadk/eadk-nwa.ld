@@ -1,8 +1,8 @@
-ENTRY(_eadk_start)
+ENTRY(_eadk_main)
 
 SECTIONS {
   .text : {
-    KEEP(*(.text._eadk_start))
+    KEEP(*(.text._eadk_main))
     *(.text)
     *(.text.*)
   }
