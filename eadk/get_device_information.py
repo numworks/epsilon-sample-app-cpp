@@ -26,11 +26,16 @@ def parse_userland_header(userland_header_file):
 
 def extract_device_info(linker_script_file_name):
   # Extract information
-  ram_address = 0x20000000
   try:
+    # Extract RAM address
+    dfuInfo = subprocess.check_output(["dfu-util", "-l", "-a", "1"]).decode('utf-8')
+    ram_address_string = re.findall(r'.*@SRAM/(0[xX][0-9a-fA-F]+).*', dfuInfo, re.MULTILINE)[0]
+    ram_address = int(ram_address_string, 16)
+    # Extract kernel/userland layout information
     subprocess.check_output(["dfu-util", "-a", "0", "-s", str(hex(ram_address)) + ":16:force", "-U", "slot_info.bin"])
     _,userland_header_address = parse_slot_info("slot_info.bin")
     subprocess.check_output(["rm", "slot_info.bin"])
+    # Extract userland header
     subprocess.check_output(["dfu-util", "-a", "0", "-s", str(hex(userland_header_address)) + ":40:force", "-U", "userland_header.bin"])
     external_apps_flash_start, external_apps_flash_end, external_apps_ram_start, external_apps_ram_end = parse_userland_header("userland_header.bin")
     subprocess.check_output(["rm", "userland_header.bin"])
