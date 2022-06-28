@@ -1,5 +1,7 @@
 INCLUDE "target/device_information.ld";
 
+ENTRY(_eadk_start)
+
 MEMORY {
   /* The maximal size of the external app depends on how many apps you already
    * stored. */
@@ -20,6 +22,7 @@ SECTIONS {
   } >FLASH
 
   .text : {
+    KEEP(*(.text._eadk_start))
     *(.text)
   } >FLASH
 
