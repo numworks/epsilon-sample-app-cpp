@@ -4,6 +4,36 @@
 .thumb
 .thumb_func
 
+@@@ string.h
+
+@ void * memset(void * dest, int val, size_t len)
+.global memset
+memset:
+  add r2, r2, r0
+  mov r3, r0
+.L3:
+  cmp r3, r2
+  bne .L4
+  bx lr
+.L4:
+  strb r1, [r3], #1
+  b .L3
+
+@ void * memcpy(void * dst, const void * src, size_t n)
+.global memcpy
+memcpy:
+  subs r3, r0, #1
+  add r2, r2, r1
+  push {r4, lr}
+.L5:
+  cmp r1, r2
+  bne .L6
+  pop {r4, pc}
+.L6:
+  ldrb r4, [r1], #1
+  strb r4, [r3, #1]!
+  b .L5
+
 @@@ Backlight
 
 @ u8 eadk_backlight_brightness()

@@ -11,8 +11,6 @@ src = $(addprefix src/,\
   eadk.cpp \
   life.cpp \
   main.cpp \
-  memcpy.cpp \
-  memset.cpp \
   rocket.cpp \
   spaceship.cpp \
   score.cpp \
