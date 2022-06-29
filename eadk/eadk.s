@@ -4,6 +4,8 @@
 .thumb
 .thumb_func
 
+@ EADK API LEVEL = 0
+
 @@@ start
 
 @ void _eadk_start()
