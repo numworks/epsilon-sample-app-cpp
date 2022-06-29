@@ -6,59 +6,35 @@
 
 @@@ start
 
-@ void _eadk_start()
-.global _eadk_start
 _eadk_start:
-  ldr r0, .L2
-  ldr r2, .L2+4
-  push {r3, lr}
-  ldr r1, .L2+8
-  subs r2, r2, r0
-  bl eadk_memcpy
-  ldr r0, .L2+12
-  ldr r2, .L2+16
-  movs r1, #0
-  subs r2, r2, r0
-  bl eadk_memset
-  pop {r3, lr}
-  b _eadk_main
+  ldr r2, .L6
+  ldr r3, .L6+4
+  ldr r1, .L6+8
+  subs r3, r3, r2
 .L2:
-.align 0
-  .word   _data_section_start_ram
-  .word   _data_section_end_ram
-  .word   _data_section_start_flash
-  .word   _bss_section_start_ram
-  .word   _bss_section_end_ram
-
-@@@ string.h
-
-@ void * eadk_memset(void * dest, int val, size_t len)
-.global eadk_memset
-eadk_memset:
-  add r2, r2, r0
-  mov r3, r0
-.L3:
-  cmp r3, r2
-  bne .L4
-  bx lr
+  subs r3, r3, #1
+  bcs .L3
+  ldr r2, .L6+12
+  movs r1, #0
+  ldr r3, .L6+16
+  subs r3, r3, r2
 .L4:
-  strb r1, [r3], #1
-  b .L3
-
-@ void * eadk_memcpy(void * dst, const void * src, size_t n)
-.global eadk_memcpy
-eadk_memcpy:
-  subs r3, r0, #1
-  add r2, r2, r1
-  push {r4, lr}
+  subs r3, r3, #1
+  bcs .L5
+  b _eadk_main
+.L3:
+  ldrb r0, [r1], #1
+  strb r0, [r2], #1
+  b .L2
 .L5:
-  cmp r1, r2
-  bne .L6
-  pop {r4, pc}
+  strb r1, [r2], #1
+  b .L4
 .L6:
-  ldrb r4, [r1], #1
-  strb r4, [r3, #1]!
-  b .L5
+  .word  _data_section_start_ram
+  .word  _data_section_end_ram
+  .word  _data_section_start_flash
+  .word  _bss_section_start_ram
+  .word  _bss_section_end_ram
 
 @@@ Backlight
 
