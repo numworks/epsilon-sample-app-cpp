@@ -65,7 +65,7 @@ Optionally, if the external app needs abritary binary code, it can define the `e
 
 ### Symbols that can be used by the external app
 
-Your application can use all symbols defined in [inliner.py](/eadk/eadk.s).
+Your application can use all symbols defined in [eadk.s](/eadk/eadk.s).
 
 ## Notes
 
