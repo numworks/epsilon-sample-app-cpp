@@ -11,7 +11,7 @@ extern char _init_array_end;
 
 extern void _eadk_main();
 
-inline void *  __attribute__((always_inline)) eadk_memcpy(void * dst, const void * src, size_t n) {
+static inline void * eadk_memcpy(void * dst, const void * src, size_t n) {
   char * destination = (char *)dst;
   char * source = (char *)src;
 
@@ -22,7 +22,7 @@ inline void *  __attribute__((always_inline)) eadk_memcpy(void * dst, const void
   return dst;
 }
 
-inline void *  __attribute__((always_inline)) eadk_memset(void * b, int c, size_t len) {
+static inline void * eadk_memset(void * b, int c, size_t len) {
   char * destination = (char *)b;
   while (len--) {
     *destination++ = (unsigned char)c;
