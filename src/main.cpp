@@ -7,6 +7,10 @@
 extern "C" const char eadk_app_name[] = "Voord";
 extern "C" const uint32_t eadk_app_api_level = 0;
 extern "C" void _eadk_main();
+/* If the app were to require an external data, the symbol 'eadk_external_data'
+ * could be used without any definition in the .nwa. The .bin would require an
+ * external .o defining eadk_external_data in order to bin the executable. */
+// extern "C" const unsigned char eadk_external_data[];
 
 void checkForSpaceshipAlienCollisions(Alien aliens[], int numberOfAliens, Spaceship * spaceship) {
   for (int i = 0; i < numberOfAliens; i++) {
