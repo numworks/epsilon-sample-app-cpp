@@ -6,6 +6,8 @@
 
 @@@ start
 
+@ void _eadk_start()
+.global _eadk_start
 _eadk_start:
   ldr r2, .L6
   ldr r3, .L6+4
