@@ -51,10 +51,6 @@ $(addprefix $(BUILD_DIR)/,%.o): $(BUILD_DIR)/%.c
 	@echo "CC     $^"
 	$(Q) arm-none-eabi-gcc $(CFLAGS) $(SFLAGS) -c $^ -o $@
 
-# This recipe is needed to get _eadk_start assembly
-#start.o: eadk/start.c
-#	arm-none-eabi-gcc -Os -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7  -mfloat-abi=hard -mfpu=fpv5-sp-d16 -fno-common -fdata-sections -ffunction-sections -fno-exceptions  -ffreestanding -c eadk/start.c
-
 .PRECIOUS: $(BUILD_DIR)/icon.c
 $(BUILD_DIR)/icon.c: src/icon.png | $(BUILD_DIR)
 	@echo "INLINE $<"
