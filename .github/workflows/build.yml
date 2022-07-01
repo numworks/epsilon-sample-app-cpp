@@ -9,7 +9,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Install C++ toolchain
         uses: numworks/setup-arm-toolchain@2020-q2
-      - name: Install build-time Python dependencies
-        run: pip3 install lz4 pypng
+      - name: Install nwlink
+        run: npm install -g nwlink
       - name: Run make build
         run: make build
