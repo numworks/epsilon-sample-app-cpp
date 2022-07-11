@@ -30,11 +30,11 @@ void eadk_main() {
 
 ## Build the app
 
-You need to install an embedded ARM toolchain and a couple Python modules.
+You need to install an embedded ARM toolchain and [nwlink](https://www.npmjs.com/package/nwlink).
 
 ```shell
-brew install numworks/tap/arm-none-eabi-gcc # Or equivalent on your OS
-pip3 install lz4 pypng
+brew install numworks/tap/arm-none-eabi-gcc node # Or equivalent on your OS
+npm install -g nwlink
 make clean && make build
 ```
 
@@ -46,7 +46,6 @@ The app is sent over to the calculator using the DFU protocol over USB.
 The last command has to be executed with the targeted device plugged to the computer.
 
 ```shell
-brew install dfu-util # Or equivalent on your OS
 # Now connect your NumWorks calculator to your computer using the USB cable
 make run
 ```
@@ -124,4 +123,3 @@ This sample app is distributed under the terms of the BSD License. See LICENSE f
 ## Trademarks
 
 NumWorks is a registered trademark.
-
