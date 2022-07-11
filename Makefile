@@ -24,10 +24,17 @@ LDFLAGS += --specs=nosys.specs -nostartfiles -lm
 .PHONY: build
 build: $(BUILD_DIR)/voord.nwa
 
+.PHONY: check
+check: $(BUILD_DIR)/voord.bin
+
 .PHONY: run
 run: $(BUILD_DIR)/voord.nwa
 	@echo "INSTALL $<"
 	$(Q) nwlink install-nwa $<
+
+$(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.nwa
+	@echo "BIN     $@"
+	$(Q) nwlink link-nwa $< $@
 
 $(BUILD_DIR)/voord.nwa: $(call object_for,$(src)) $(BUILD_DIR)/icon.o
 	@echo "LD      $@"

@@ -13,3 +13,5 @@ jobs:
         run: npm install -g nwlink
       - name: Run make build
         run: make build
+      - name: Run make check
+        run: make check
