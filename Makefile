@@ -18,14 +18,11 @@ src = $(addprefix src/,\
 SFLAGS = -I. -Isrc -Os -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7  -mfloat-abi=hard -mfpu=fpv5-sp-d16
 SFLAGS += -fno-common -fdata-sections -ffunction-sections -fno-exceptions
 CPPFLAGS = -std=c++11 -ffreestanding -fno-rtti -nostdinc -nostdlib -fno-threadsafe-statics
-LDFLAGS = -e _eadk_main -Wl,--gc-sections -lgcc -Wl,-T,eadk/eadk.ld -Wl,-Ur
+LDFLAGS = -Wl,-Ur
 LDFLAGS += --specs=nosys.specs -nostartfiles -lm
 
 .PHONY: build
-build: $(BUILD_DIR)/voord.nwa
-
-.PHONY: check
-check: $(BUILD_DIR)/voord.bin
+build: $(BUILD_DIR)/voord.bin
 
 .PHONY: run
 run: $(BUILD_DIR)/voord.nwa
@@ -50,11 +47,11 @@ $(BUILD_DIR)/icon.nwi: src/icon.png
 
 $(BUILD_DIR)/icon.o: $(BUILD_DIR)/icon.nwi
 	@echo "INLINE  $<"
-	$(Q) arm-none-eabi-g++ -c -DFILE=$< -DSYMBOL=eadk_app_icon eadk/incbin.S -o $@
+	$(Q) arm-none-eabi-g++ -c -DFILE=$< -DSYMBOL=eadk_app_icon src/incbin.S -o $@
 
 .PRECIOUS: $(BUILD_DIR)
 $(BUILD_DIR):
-	$(Q) mkdir -p $@/src $@/eadk
+	$(Q) mkdir -p $@/src
 
 .PHONY: clean
 clean:

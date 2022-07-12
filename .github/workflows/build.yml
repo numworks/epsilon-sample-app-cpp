@@ -11,7 +11,5 @@ jobs:
         uses: numworks/setup-arm-toolchain@2020-q2
       - name: Install nwlink
         run: npm install -g nwlink
-      - name: Run make build
-        run: make build
-      - name: Run make check
-        run: make check
+      - name: Run make
+        run: make
