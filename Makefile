@@ -15,9 +15,10 @@ src = $(addprefix src/,\
   score.cpp \
 )
 
-SFLAGS = -I. -Isrc -Os -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7  -mfloat-abi=hard -mfpu=fpv5-sp-d16
-SFLAGS += -fno-common -fdata-sections -ffunction-sections -fno-exceptions
-CPPFLAGS = -std=c++11 -ffreestanding -fno-rtti -nostdinc -nostdlib -fno-threadsafe-statics
+SFLAGS = -I. -Isrc -Os -Wall -MD -MP -ggdb3 -mthumb -mfloat-abi=hard -mcpu=cortex-m7 -mfloat-abi=hard -mfpu=fpv5-sp-d16
+SFLAGS += -fno-common -fdata-sections -ffunction-sections -ffreestanding -nostdinc -nostdlib
+CFLAGS = -std=c11
+CXXFLAGS = -std=c++11 -fno-exceptions -fno-rtti -fno-threadsafe-statics
 LDFLAGS = -Wl,-Ur
 LDFLAGS += --specs=nosys.specs -nostartfiles -lm
 
@@ -37,9 +38,13 @@ $(BUILD_DIR)/voord.nwa: $(call object_for,$(src)) $(BUILD_DIR)/icon.o
 	@echo "LD      $@"
 	$(Q) arm-none-eabi-gcc $(LDFLAGS) $(SFLAGS) $^ -o $@
 
+$(addprefix $(BUILD_DIR)/,%.o): %.c | $(BUILD_DIR)
+	@echo "C       $^"
+	$(Q) arm-none-eabi-gcc $(CFLAGS) $(SFLAGS) -c $^ -o $@
+
 $(addprefix $(BUILD_DIR)/,%.o): %.cpp | $(BUILD_DIR)
 	@echo "CXX     $^"
-	$(Q) arm-none-eabi-g++ $(CPPFLAGS) $(SFLAGS) -c $^ -o $@
+	$(Q) arm-none-eabi-g++ $(CXXFLAGS) $(SFLAGS) -c $^ -o $@
 
 $(BUILD_DIR)/icon.nwi: src/icon.png
 	@echo "NWI     $<"
