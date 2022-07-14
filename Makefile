@@ -1,5 +1,6 @@
 Q ?= @
 BUILD_DIR = target
+NAME = voord
 
 define object_for
 $(addprefix $(BUILD_DIR)/,$(addsuffix .o,$(basename $(1))))
@@ -23,11 +24,14 @@ LDFLAGS = -Wl,-Ur
 LDFLAGS += --specs=nosys.specs -nostartfiles
 LDFLAGS_END = -lm
 
+.PHONY: all
+all: build
+
 .PHONY: build
-build: $(BUILD_DIR)/voord.bin
+build: $(BUILD_DIR)/$(NAME).bin
 
 .PHONY: run
-run: $(BUILD_DIR)/voord.nwa
+run: $(BUILD_DIR)/$(NAME).nwa
 	@echo "INSTALL $<"
 	$(Q) nwlink install-nwa $<
 
@@ -35,7 +39,7 @@ $(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.nwa
 	@echo "BIN     $@"
 	$(Q) nwlink link-nwa $< $@
 
-$(BUILD_DIR)/voord.nwa: $(call object_for,$(src)) $(BUILD_DIR)/icon.o
+$(BUILD_DIR)/$(NAME).nwa: $(call object_for,$(src)) $(BUILD_DIR)/icon.o
 	@echo "LD      $@"
 	$(Q) arm-none-eabi-gcc $(LDFLAGS) $(SFLAGS) $^ $(LDFLAGS_END) -o $@
 
