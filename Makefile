@@ -20,7 +20,8 @@ SFLAGS += -fno-common -fdata-sections -ffunction-sections -ffreestanding -nostdi
 CFLAGS = -std=c11
 CXXFLAGS = -std=c++11 -fno-exceptions -fno-rtti -fno-threadsafe-statics
 LDFLAGS = -Wl,-Ur
-LDFLAGS += --specs=nosys.specs -nostartfiles -lm
+LDFLAGS += --specs=nosys.specs -nostartfiles
+LDFLAGS_END = -lm
 
 .PHONY: build
 build: $(BUILD_DIR)/voord.bin
@@ -36,7 +37,7 @@ $(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.nwa
 
 $(BUILD_DIR)/voord.nwa: $(call object_for,$(src)) $(BUILD_DIR)/icon.o
 	@echo "LD      $@"
-	$(Q) arm-none-eabi-gcc $(LDFLAGS) $(SFLAGS) $^ -o $@
+	$(Q) arm-none-eabi-gcc $(LDFLAGS) $(SFLAGS) $^ $(LDFLAGS_END) -o $@
 
 $(addprefix $(BUILD_DIR)/,%.o): %.c | $(BUILD_DIR)
 	@echo "C       $^"
