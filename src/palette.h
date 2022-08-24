@@ -1,7 +1,7 @@
 #ifndef PALETTE_H
 #define PALETTE_H
 
-#include "eadk.h"
+#include "eadkpp.h"
 
 constexpr static EADK::Display::Color Black(0x000000);
 constexpr static EADK::Display::Color Green(0x28F52E);

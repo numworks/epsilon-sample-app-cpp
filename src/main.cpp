@@ -1,16 +1,11 @@
 #include "alien.h"
 #include "display.h"
-#include "eadk.h"
+#include "eadkpp.h"
 #include "palette.h"
 #include "spaceship.h"
 
-extern "C" const char eadk_app_name[] = "Voord";
-extern "C" const uint32_t eadk_app_api_level = 0;
-extern "C" void _eadk_main();
-/* If the app were to require an external data, the symbol 'eadk_external_data'
- * could be used without any definition in the .nwa. The .bin would require an
- * external .o defining eadk_external_data in order to bin the executable. */
-// extern "C" const unsigned char eadk_external_data[];
+extern const char eadk_app_name[] __attribute__((section(".rodata.eadk_app_name"))) = "Voord";
+extern const uint32_t eadk_api_level __attribute__((section(".rodata.eadk_api_level"))) = 0;
 
 void checkForSpaceshipAlienCollisions(Alien aliens[], int numberOfAliens, Spaceship * spaceship) {
   for (int i = 0; i < numberOfAliens; i++) {
@@ -21,7 +16,7 @@ void checkForSpaceshipAlienCollisions(Alien aliens[], int numberOfAliens, Spaces
   }
 }
 
-void _eadk_main() {
+int main(int argc, char * argv[]) {
   EADK::Display::pushRectUniform(EADK::Display::Rect(0, 0, Display::Width, Display::Height), Black);
 
   constexpr int k_maxNumberOfAliens = 10;

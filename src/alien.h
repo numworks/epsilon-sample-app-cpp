@@ -1,7 +1,7 @@
 #ifndef ALIEN_H
 #define ALIEN_H
 
-#include "eadk.h"
+#include "eadkpp.h"
 #include "spaceship.h"
 
 class Alien {

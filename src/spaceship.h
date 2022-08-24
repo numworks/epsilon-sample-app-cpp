@@ -2,7 +2,7 @@
 #define SPACESHIP_H
 
 #include "display.h"
-#include "eadk.h"
+#include "eadkpp.h"
 #include "life.h"
 #include "rocket.h"
 #include "score.h"

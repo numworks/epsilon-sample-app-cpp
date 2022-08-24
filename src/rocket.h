@@ -2,7 +2,7 @@
 #define ROCKET_H
 
 #include "display.h"
-#include "eadk.h"
+#include "eadkpp.h"
 
 class Alien;
 

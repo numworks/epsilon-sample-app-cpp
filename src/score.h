@@ -2,7 +2,7 @@
 #define SCORE_H
 
 #include "display.h"
-#include "eadk.h"
+#include "eadkpp.h"
 
 class Score {
 public:
