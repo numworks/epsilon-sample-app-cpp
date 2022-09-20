@@ -63,9 +63,9 @@ $(BUILD_DIR)/icon.nwi: src/icon.png
 	@echo "NWI     $<"
 	$(Q) $(NWLINK) png-nwi $< $@
 
-$(BUILD_DIR)/icon.o: $(BUILD_DIR)/icon.nwi
-	@echo "INLINE  $<"
-	$(Q) $(CXX) -c -DFILE=$< -DSYMBOL=eadk_app_icon src/incbin.S -o $@
+$(BUILD_DIR)/icon.o: src/icon.png
+	@echo "ICON    $<"
+	$(Q) $(NWLINK) png-icon-o $< $@
 
 .PRECIOUS: $(BUILD_DIR)
 $(BUILD_DIR):
