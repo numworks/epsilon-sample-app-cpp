@@ -59,10 +59,6 @@ $(addprefix $(BUILD_DIR)/,%.o): %.cpp | $(BUILD_DIR)
 	@echo "CXX     $^"
 	$(Q) $(CXX) $(CPPFLAGS) $(SFLAGS) -c $^ -o $@
 
-$(BUILD_DIR)/icon.nwi: src/icon.png
-	@echo "NWI     $<"
-	$(Q) $(NWLINK) png-nwi $< $@
-
 $(BUILD_DIR)/icon.o: src/icon.png
 	@echo "ICON    $<"
 	$(Q) $(NWLINK) png-icon-o $< $@
