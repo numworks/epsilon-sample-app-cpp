@@ -24,10 +24,10 @@ private:
   static constexpr int k_maxNumberOfRockets = 3*50;
   static constexpr int k_maxNumberOfLives = 3;
   static constexpr int k_xLowerBound = Display::CommonHorizontalMargin;
-  static constexpr int k_xUpperBound = Display::Width - Display::CommonHorizontalMargin;
+  static constexpr int k_xUpperBound = EADK::Screen::Width - Display::CommonHorizontalMargin;
   static constexpr int k_yLowerBound = 3*Display::CommonVerticalMargin;
-  static constexpr int k_yUpperBound = Display::Height - Display::CommonVerticalMargin;
-  void draw(const EADK::Display::Color c) const;
+  static constexpr int k_yUpperBound = EADK::Screen::Height - Display::CommonVerticalMargin;
+  void draw(const EADK::Color c) const;
   void redrawLives();
   int m_x;
   int m_y;

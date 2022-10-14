@@ -18,7 +18,7 @@ public:
   static constexpr int k_width = 15;
   static constexpr int k_height = 18;
 private:
-  void draw(const EADK::Display::Color c) const;
+  void draw(const EADK::Color c) const;
   void hide() const;
   void ghostify() { m_x = -1; }
   static constexpr int k_step = 10;

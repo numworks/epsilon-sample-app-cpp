@@ -12,26 +12,26 @@ Alien::Alien(int x) :
 }
 
 void Alien::hide() const {
-  EADK::Display::pushRectUniform(EADK::Display::Rect(m_x - k_width/2, m_y - k_height/2, k_width, k_height), Black);
+  EADK::Display::pushRectUniform(EADK::Rect(m_x - k_width/2, m_y - k_height/2, k_width, k_height), Black);
 }
 
-void Alien::draw(const EADK::Display::Color c) const {
+void Alien::draw(const EADK::Color c) const {
   int xMin = m_x - k_width/2;
   int xMax = xMin + k_width;
   int yMin = m_y - k_height/2;
   int yMax = yMin + k_height;
-  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin, yMin, k_width, k_height - 4), c);
-  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 3,  yMax - 4, 2, 4), c);
-  EADK::Display::pushRectUniform(EADK::Display::Rect(xMax - 4 - 2, yMax - 4, 2, 4), c);
-  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 2, yMin + 3, 3, 7), Black);
-  EADK::Display::pushRectUniform(EADK::Display::Rect(xMax - 2 - 3, yMin + 3, 3, 7), Black);
+  EADK::Display::pushRectUniform(EADK::Rect(xMin, yMin, k_width, k_height - 4), c);
+  EADK::Display::pushRectUniform(EADK::Rect(xMin + 3,  yMax - 4, 2, 4), c);
+  EADK::Display::pushRectUniform(EADK::Rect(xMax - 4 - 2, yMax - 4, 2, 4), c);
+  EADK::Display::pushRectUniform(EADK::Rect(xMin + 2, yMin + 3, 3, 7), Black);
+  EADK::Display::pushRectUniform(EADK::Rect(xMax - 2 - 3, yMin + 3, 3, 7), Black);
 }
 
 void Alien::step() {
   if (!isGhost()) {
     hide();
     m_y += k_step;
-    if (m_y >= Display::Height) {
+    if (m_y >= EADK::Screen::Height) {
       ghostify();
     }
     if (!isGhost()) {

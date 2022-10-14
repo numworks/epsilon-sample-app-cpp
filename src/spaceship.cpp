@@ -3,8 +3,8 @@
 #include "palette.h"
 
 Spaceship::Spaceship() :
-  m_x(Display::Width/2),
-  m_y(Display::Height - Display::CommonVerticalMargin),
+  m_x(EADK::Screen::Width/2),
+  m_y(EADK::Screen::Height - Display::CommonVerticalMargin),
   m_numberOfLives(k_maxNumberOfLives)
 {
 
@@ -15,20 +15,20 @@ Spaceship::Spaceship() :
   }
 }
 
-void Spaceship::draw(const EADK::Display::Color color) const {
+void Spaceship::draw(const EADK::Color color) const {
   int xMin = m_x - k_width/2;
   int xMax = xMin + k_width;
   int yMin = m_y - k_height/2;
-  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 11, yMin + 10, 13, 11), color);
+  EADK::Display::pushRectUniform(EADK::Rect(xMin + 11, yMin + 10, 13, 11), color);
   // Wings
-  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin, yMin + 14, k_width, 2), color);
-  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 3, yMin + 17, k_width - 6, 2), color);
-  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 2, yMin + 8, 1, 6), color);
-  EADK::Display::pushRectUniform(EADK::Display::Rect(xMax - 3, yMin + 8, 1, 6), color);
+  EADK::Display::pushRectUniform(EADK::Rect(xMin, yMin + 14, k_width, 2), color);
+  EADK::Display::pushRectUniform(EADK::Rect(xMin + 3, yMin + 17, k_width - 6, 2), color);
+  EADK::Display::pushRectUniform(EADK::Rect(xMin + 2, yMin + 8, 1, 6), color);
+  EADK::Display::pushRectUniform(EADK::Rect(xMax - 3, yMin + 8, 1, 6), color);
   // Nose
-  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 15, yMin + 6, 5, 4), color);
-  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 16, yMin + 4, 3, 2), color);
-  EADK::Display::pushRectUniform(EADK::Display::Rect(xMin + 17, yMin, 1, 4), color);
+  EADK::Display::pushRectUniform(EADK::Rect(xMin + 15, yMin + 6, 5, 4), color);
+  EADK::Display::pushRectUniform(EADK::Rect(xMin + 16, yMin + 4, 3, 2), color);
+  EADK::Display::pushRectUniform(EADK::Rect(xMin + 17, yMin, 1, 4), color);
 }
 
 void Spaceship::move(int deltaX, int deltaY) {

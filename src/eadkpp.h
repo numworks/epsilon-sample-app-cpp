@@ -7,8 +7,6 @@ extern "C" {
 
 namespace EADK {
 
-namespace Display {
-
 class Color {
 public:
   constexpr Color(uint32_t rgb) : m_value(((rgb&0xF80000)>>8)|((rgb&0x00FC00)>>5)|((rgb&0x0000F8)>>3)) {}
@@ -16,7 +14,7 @@ public:
 private:
   uint16_t m_value;
 };
-static_assert(sizeof(EADK::Display::Color) == sizeof(eadk_color_t), "EADK::Display::Color should match eadk_color_t");
+static_assert(sizeof(EADK::Color) == sizeof(eadk_color_t), "EADK::Color should match eadk_color_t");
 
 class Point {
 public:
@@ -29,7 +27,7 @@ private:
   uint16_t m_x;
   uint16_t m_y;
 };
-static_assert(sizeof(EADK::Display::Point) == sizeof(eadk_point_t), "EADK::Display::Point should match eadk_point_t");
+static_assert(sizeof(EADK::Point) == sizeof(eadk_point_t), "EADK::Point should match eadk_point_t");
 
 class Rect {
 public:
@@ -46,7 +44,15 @@ private:
   uint16_t m_width;
   uint16_t m_height;
 };
-static_assert(sizeof(EADK::Display::Rect) == sizeof(eadk_rect_t), "EADK::Display::Rect should match eadk_rect_t");
+static_assert(sizeof(EADK::Rect) == sizeof(eadk_rect_t), "EADK::Rect should match eadk_rect_t");
+
+namespace Screen {
+  constexpr uint16_t Width = EADK_SCREEN_WIDTH;
+  constexpr uint16_t Height = EADK_SCREEN_HEIGHT;
+  constexpr Rect Rect(0, 0, Width, Height);
+}
+
+namespace Display {
 
 static inline void pushRect(Rect rect, const Color * pixels) {
   eadk_display_push_rect(rect, reinterpret_cast<const eadk_color_t *>(pixels));

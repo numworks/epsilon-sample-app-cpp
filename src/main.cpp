@@ -10,14 +10,14 @@ extern const uint32_t eadk_api_level __attribute__((section(".rodata.eadk_api_le
 void checkForSpaceshipAlienCollisions(Alien aliens[], int numberOfAliens, Spaceship * spaceship) {
   for (int i = 0; i < numberOfAliens; i++) {
     if (aliens[i].tryToHit(spaceship)) {
-      EADK::Display::pushRectUniform(EADK::Display::Rect(0, 0, Display::Width, Display::Height), Red);
+      EADK::Display::pushRectUniform(EADK::Screen::Rect, Red);
       while (1) {}
     }
   }
 }
 
 int main(int argc, char * argv[]) {
-  EADK::Display::pushRectUniform(EADK::Display::Rect(0, 0, Display::Width, Display::Height), Black);
+  EADK::Display::pushRectUniform(EADK::Screen::Rect, Black);
 
   constexpr int k_maxNumberOfAliens = 10;
   Alien aliens[k_maxNumberOfAliens];
@@ -70,7 +70,7 @@ int main(int argc, char * argv[]) {
       alienMaterializationTimer = 0;
       for (int i = 0; i < k_maxNumberOfAliens; i++) {
         if (aliens[i].isGhost()) {
-          aliens[i] = Alien(Display::CommonHorizontalMargin + (float)EADK::random()/(float)0xFFFFFFFF * (Display::Width - 2*Display::CommonHorizontalMargin));
+          aliens[i] = Alien(Display::CommonHorizontalMargin + (float)EADK::random()/(float)0xFFFFFFFF * (EADK::Screen::Width - 2*Display::CommonHorizontalMargin));
           break;
         }
       }
