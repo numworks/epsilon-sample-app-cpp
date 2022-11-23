@@ -2,7 +2,7 @@ Q ?= @
 CC = arm-none-eabi-gcc
 CXX = arm-none-eabi-g++
 BUILD_DIR = target
-NWLINK = npx --yes -- nwlink@0.0.15
+NWLINK = npx --yes -- nwlink@0.0.16
 LINK_GC = 1
 LTO = 1
 
